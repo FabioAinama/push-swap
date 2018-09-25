@@ -1,0 +1,695 @@
+Pile A: 16
+Pile A: 5
+Pile A: 22
+Pile A: 13
+Pile A: 21
+Pile A: 1
+Pile A: 20
+Pile A: 55
+Pile A: 2
+Pile A: 89
+Pile A: 34
+Pile A: 25
+Pile A: 88
+Pile A: 3
+Pile A: 64
+Pile A: 17
+Pile A: 69
+Pile A: 7
+
+Sort Algo: 
+
+Going to push 16 into pile B:
+Pile A: 5         
+Pile A: 22        
+Pile A: 13        
+Pile A: 21        
+Pile A: 1         
+Pile A: 20        
+Pile A: 55        
+Pile A: 2         
+Pile A: 89        
+Pile A: 34        
+Pile A: 25        
+Pile A: 88        
+Pile A: 3         
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile B:         16
+----------------------------------------
+Going to push  5 into pile B:
+Pile A: 22        
+Pile A: 13        
+Pile A: 21        
+Pile A: 1         
+Pile A: 20        
+Pile A: 55        
+Pile A: 2         
+Pile A: 89        
+Pile A: 34        
+Pile A: 25        
+Pile A: 88        
+Pile A: 3         
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile B:          5
+Pile B:         16
+----------------------------------------
+Going to Rotate 2 piles
+Pile A: 13        
+Pile A: 21        
+Pile A: 1         
+Pile A: 20        
+Pile A: 55        
+Pile A: 2         
+Pile A: 89        
+Pile A: 34        
+Pile A: 25        
+Pile A: 88        
+Pile A: 3         
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile B:         16
+Pile B:          5
+----------------------------------------
+Going to push 13 into pile B:
+Pile A: 21        
+Pile A: 1         
+Pile A: 20        
+Pile A: 55        
+Pile A: 2         
+Pile A: 89        
+Pile A: 34        
+Pile A: 25        
+Pile A: 88        
+Pile A: 3         
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile B:         13
+Pile B:         16
+Pile B:          5
+----------------------------------------
+Going to Swap 2 piles
+Pile A: 1         
+Pile A: 21        
+Pile A: 20        
+Pile A: 55        
+Pile A: 2         
+Pile A: 89        
+Pile A: 34        
+Pile A: 25        
+Pile A: 88        
+Pile A: 3         
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile B:         16
+Pile B:         13
+Pile B:          5
+----------------------------------------
+Going to push  1 into pile B:
+Pile A: 21        
+Pile A: 20        
+Pile A: 55        
+Pile A: 2         
+Pile A: 89        
+Pile A: 34        
+Pile A: 25        
+Pile A: 88        
+Pile A: 3         
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile B:          1
+Pile B:         16
+Pile B:         13
+Pile B:          5
+----------------------------------------
+Going to Rotate pile B
+Pile A: 21        
+Pile A: 20        
+Pile A: 55        
+Pile A: 2         
+Pile A: 89        
+Pile A: 34        
+Pile A: 25        
+Pile A: 88        
+Pile A: 3         
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          1
+----------------------------------------
+Going to Swap pile A
+Pile A: 20        
+Pile A: 21        
+Pile A: 55        
+Pile A: 2         
+Pile A: 89        
+Pile A: 34        
+Pile A: 25        
+Pile A: 88        
+Pile A: 3         
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          1
+----------------------------------------
+Going to push 20 into pile B:
+Pile A: 21        
+Pile A: 55        
+Pile A: 2         
+Pile A: 89        
+Pile A: 34        
+Pile A: 25        
+Pile A: 88        
+Pile A: 3         
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          1
+----------------------------------------
+Going to push 21 into pile B:
+Pile A: 55        
+Pile A: 2         
+Pile A: 89        
+Pile A: 34        
+Pile A: 25        
+Pile A: 88        
+Pile A: 3         
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          1
+----------------------------------------
+Going to Rotate pile A
+Pile A: 2         
+Pile A: 89        
+Pile A: 34        
+Pile A: 25        
+Pile A: 88        
+Pile A: 3         
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile A: 55        
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          1
+----------------------------------------
+Going to push  2 into pile B:
+Pile A: 89        
+Pile A: 34        
+Pile A: 25        
+Pile A: 88        
+Pile A: 3         
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile A: 55        
+Pile B:          2
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          1
+----------------------------------------
+Going to reverse-rotate and swap B.
+Pile B:          2
+Pile B:          1
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+----------------------------------------
+Going to rotate twice B.
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          1
+----------------------------------------
+Going to Rotate pile A
+Pile A: 34        
+Pile A: 25        
+Pile A: 88        
+Pile A: 3         
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile A: 55        
+Pile A: 89        
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          1
+----------------------------------------
+Going to Swap pile A
+Pile A: 25        
+Pile A: 34        
+Pile A: 88        
+Pile A: 3         
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile A: 55        
+Pile A: 89        
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          1
+----------------------------------------
+Going to push 25 into pile B:
+Pile A: 34        
+Pile A: 88        
+Pile A: 3         
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile A: 55        
+Pile A: 89        
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          1
+----------------------------------------
+Going to push 34 into pile B:
+Pile A: 88        
+Pile A: 3         
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile A: 55        
+Pile A: 89        
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          1
+----------------------------------------
+Going to Swap pile A
+Pile A: 3         
+Pile A: 88        
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile A: 55        
+Pile A: 89        
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          1
+----------------------------------------
+Going to push  3 into pile B:
+Pile A: 88        
+Pile A: 64        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile A: 55        
+Pile A: 89        
+Pile B:          3
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          1
+----------------------------------------
+Going to reverse-rotate and swap B.
+Pile B:          3
+Pile B:          1
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+----------------------------------------
+Going to rotate twice B.
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          3
+Pile B:          1
+----------------------------------------
+Going to Swap pile A
+Pile A: 64        
+Pile A: 88        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile A: 55        
+Pile A: 89        
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          3
+Pile B:          1
+----------------------------------------
+Going to push 64 into pile B:
+Pile A: 88        
+Pile A: 17        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile A: 55        
+Pile A: 89        
+Pile B:         64
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          3
+Pile B:          1
+----------------------------------------
+Going to Swap pile A
+Pile A: 17        
+Pile A: 88        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile A: 55        
+Pile A: 89        
+Pile B:         64
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          3
+Pile B:          1
+----------------------------------------
+Going to push 17 into pile B:
+Pile A: 88        
+Pile A: 69        
+Pile A: 7         
+Pile A: 22        
+Pile A: 55        
+Pile A: 89        
+Pile B:         17
+Pile B:         64
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          3
+Pile B:          1
+----------------------------------------
+Going to Swap 2 piles
+Pile A: 69        
+Pile A: 88        
+Pile A: 7         
+Pile A: 22        
+Pile A: 55        
+Pile A: 89        
+Pile B:         64
+Pile B:         17
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          3
+Pile B:          1
+----------------------------------------
+Going to push 69 into pile B:
+Pile A: 88        
+Pile A: 7         
+Pile A: 22        
+Pile A: 55        
+Pile A: 89        
+Pile B:         69
+Pile B:         64
+Pile B:         17
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          3
+Pile B:          1
+----------------------------------------
+Going to Swap pile A
+Pile A: 7         
+Pile A: 88        
+Pile A: 22        
+Pile A: 55        
+Pile A: 89        
+Pile B:         69
+Pile B:         64
+Pile B:         17
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          3
+Pile B:          1
+----------------------------------------
+Going to push  7 into pile B:
+Pile A: 88        
+Pile A: 22        
+Pile A: 55        
+Pile A: 89        
+Pile B:          7
+Pile B:         69
+Pile B:         64
+Pile B:         17
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          3
+Pile B:          1
+----------------------------------------
+Going to reverse-rotate and swap B.
+Pile B:          7
+Pile B:          1
+Pile B:         69
+Pile B:         64
+Pile B:         17
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          3
+----------------------------------------
+Going to rotate twice B.
+Pile B:         69
+Pile B:         64
+Pile B:         17
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          3
+Pile B:          7
+Pile B:          1
+----------------------------------------
+Going to Swap pile A
+Pile A: 22        
+Pile A: 88        
+Pile A: 55        
+Pile A: 89        
+Pile B:         69
+Pile B:         64
+Pile B:         17
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          3
+Pile B:          7
+Pile B:          1
+----------------------------------------
+Going to push 22 into pile B:
+Pile A: 88        
+Pile A: 55        
+Pile A: 89        
+Pile B:         22
+Pile B:         69
+Pile B:         64
+Pile B:         17
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          3
+Pile B:          7
+Pile B:          1
+----------------------------------------
+Going to Swap 2 piles
+Pile A: 55        
+Pile A: 88        
+Pile A: 89        
+Pile B:         69
+Pile B:         22
+Pile B:         64
+Pile B:         17
+Pile B:         34
+Pile B:         25
+Pile B:         21
+Pile B:         20
+Pile B:         16
+Pile B:         13
+Pile B:          5
+Pile B:          2
+Pile B:          3
+Pile B:          7
+Pile B:          1
+----------------------------------------
+Pile A: 1         
+Pile A: 2         
+Pile A: 7         
+Pile A: 3         
+Pile A: 5         
+Pile A: 13        
+Pile A: 16        
+Pile A: 17        
+Pile A: 20        
+Pile A: 21        
+Pile A: 25        
+Pile A: 34        
+Pile A: 22        
+Pile A: 64        
+Pile A: 69        
+Pile A: 55        
+Pile A: 88        
+Pile A: 89        
+----------------------------------------
+Number of operations: 63
