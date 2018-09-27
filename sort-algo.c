@@ -24,8 +24,17 @@ int		push_b_to_a(int *pile_a, int *pile_b)
 			swap_pile(pile_b);
 			operations++;
 		}
-		push_pile(pile_b, pile_a);
-		operations++;
+		if (pile_b[0] > pile_a[0])
+		{
+			push_pile(pile_a, pile_b);
+			operations++;
+		}
+		if (pile_b[0] >= pile_b[1])
+		{
+			push_pile(pile_b, pile_a);
+			operations++;
+		}
+		// if (pile_a[])
 	}
 	return (operations);
 }
@@ -40,6 +49,28 @@ int		get_pile_length(int *pile)
 	return (i);
 }
 
+void	should_swap_or_rotate_a(int *pile)
+{
+	int length;
+
+	length = get_pile_length(pile);
+	if (pile[1] <= pile[length - 1] && pile[1] <= pile[length - 2])
+	{
+		swap_pile(pile);
+		printf("Swap pile A:\n");
+	}
+	else if (pile[length - 1] < pile[0])
+	{
+		reverse_rotate_pile(pile);
+		printf("Reverse Rotate pile A:\n");		
+	}
+	else
+	{
+		rotate_pile(pile);
+		printf("Rotate pile A:\n");
+	}
+}
+	
 void	print_piles(int *pile_a, int *pile_b)
 {
 	int i;
@@ -90,10 +121,12 @@ int		check_correct_order(int *pile, int call)
 	int i;
 	int correct;
 	int operations;
+	int count;
 
 	length = get_pile_length(pile);
 	correct = 1;
 	i = 0;
+	count = 0;
 	operations = 0;
 	if (length > 3)
 	{
@@ -112,20 +145,37 @@ int		check_correct_order(int *pile, int call)
 	}
 	if (correct == 0)
 	{
-		printf("Going to reverse-rotate and swap B.\n");
-		reverse_rotate_pile(pile);
-		swap_pile(pile);
-		print_pile(pile);
-		operations += 2 + check_correct_order(pile, 1);
+		while(pile[0] > pile[length - 1])
+		{
+			if (count == 0)
+				count++;
+			reverse_rotate_pile(pile);
+			swap_pile(pile);
+			printf("Going to reverse-rotate and swap B.Count = %d\n", count);
+			print_pile(pile);
+			count++;
+			operations += 2;
+		}
+		while (count != 0)
+		{
+			rotate_pile(pile);
+			count--;
+			operations++;
+		}
+		operations += check_correct_order(pile, 1);
 	}
-	if (correct == 1 && call == 1)
-	{
-		printf("Going to rotate twice B.\n");		
-		rotate_pile(pile);
-		rotate_pile(pile);
-		print_pile(pile);
-		operations += 2;
-	}
+		// printf("Count = %d\n", count);
+	// if (correct == 1 && call == 1)
+	// {
+	// 	printf("Going to rotate twice B. Count = %d\n", count);
+	// 	while (count != 0)
+	// 	{
+	// 		rotate_pile(pile);
+	// 		count--;
+	// 	}
+	// 	print_pile(pile);
+	// 	operations += 2;
+	// }
 	return (operations);
 }
 
@@ -146,7 +196,7 @@ void    sort_algo(int *pile_a, int *pile_b)
 	printf("\nSort Algo: \n\n");
 	while (a_length > 3 && !finished)
 	{
-		if (pile_a[0] <= pile_a[1] || pile_a[0] <= pile_a[2] || pile_a[0] <= pile_a[a_length - 1])
+		if (pile_a[0] <= pile_a[1] && pile_a[0] <= pile_a[a_length - 1] && pile_a[0] <= pile_a[a_length - 2])
 		{
 			printf("Going to push %2d into pile B:\n", pile_a[0]);
 			push_pile(pile_a, pile_b);
@@ -155,6 +205,13 @@ void    sort_algo(int *pile_a, int *pile_b)
 			a_length--;
 			b_length++;
 			operations++;
+		}
+		else
+		{
+			printf("Going to Swap/Rotate/RevRotate pile A\n");
+			should_swap_or_rotate_a(pile_a);
+			print_piles(pile_a, pile_b);
+			operations++;	
 		}
 		if (b_length > 1)
 		{
@@ -202,10 +259,10 @@ void    sort_algo(int *pile_a, int *pile_b)
 			print_piles(pile_a, pile_b);
 			operations++;			
 		}
-		if (!(pile_a[0] <= pile_a[1] || pile_a[0] <= pile_a[2] || pile_a[0] <= pile_a[a_length - 1]))
-		{
-			finished = 1;
-		}
+		// if (!(pile_a[0] <= pile_a[1] && pile_a[0] <= pile_a[2] && pile_a[0] <= pile_a[a_length - 1] && pile_a[0] <= pile_a[a_length - 2]))
+		// {
+		// 	finished = 1;
+		// }
 	}
 	operations += push_b_to_a(pile_a, pile_b);
 	print_piles(pile_a, pile_b);	
