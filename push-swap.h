@@ -24,5 +24,11 @@ void	rotate_both(int *pile_a, int *pile_b);
 void	reverse_rotate_pile(int *pile);
 void	revers_rotate_both(int *pile_a, int *pile_b);
 void    sort_algo(int *pile_a, int *pile_b);
+int		get_pile_length(int *pile);
+void	print_pile(int *pile);
+void	order_numbers(int *pile, int *new);
+void	last_check(int *pile);
+int		order_b(int *pile, int b_length);
+int		order_a(int *pile, int max);
 
 #endif

@@ -109,16 +109,19 @@ int     main(int argc, char **argv)
 {
 	int *pile_a;
 	int *pile_b;
+	int *copy_a;
 	int i;
 
 	i = 0;
 	pile_a = (int *)malloc(sizeof(int) * argc);
 	pile_b = (int *)malloc(sizeof(int) * argc);
+	copy_a = (int *)malloc(sizeof(int) * argc);
 	pile_a[argc - 1] = 0;
 	pile_b[0] = 0;
 	while (i < argc - 1)
 	{
 		pile_a[i] = ft_atoi(argv[i + 1]);
+		copy_a[i] = pile_a[i];
 		i++;
 	}
 	i = 0;
@@ -138,7 +141,9 @@ int     main(int argc, char **argv)
 			printf("Pile B: %d\n", pile_b[i]);
 			i++;
 		}
+		order_numbers(pile_a, copy_a);
 		sort_algo(pile_a, pile_b);
 	}
+	last_check(pile_a);
 	return (0);
 }
