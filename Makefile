@@ -12,7 +12,7 @@
 
 all :
 	@echo "Compilation..."
-	@gcc push-swap.c sort-algo.c transform-numbers.c checker.c order-b.c order-a.c libft/libft.a
+	@gcc push-swap.c sort-algo.c sort_algo2.c transform-numbers.c checker.c order-b.c order-a.c libft/libft.a
 	@echo "Compilation terminée..."	
 
 test0 :

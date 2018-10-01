@@ -16,6 +16,14 @@
 # include <stdlib.h>
 # include "libft/libft.h"
 
+typedef struct      s_pile
+{
+    int *pile;
+    int min;
+    int max;
+    int avg;
+}                   t_pile;
+
 void	push_pile(int *pile_src, int *pile_dst);
 void	swap_pile(int *pile);
 void	swap_both(int *pile_a, int *pile_b);
@@ -30,5 +38,9 @@ void	order_numbers(int *pile, int *new);
 void	last_check(int *pile);
 int		order_b(int *pile, int b_length);
 int		order_a(int *pile, int max);
+void	print_piles(int *pile_a, int *pile_b);
+
+void	sort_algo2(int *pile_a, int *pile_b);
+int		order_b2(int *pile);
 
 #endif

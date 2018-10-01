@@ -143,7 +143,9 @@ int		maybe_better_rotate(int *p_a, int *p_b)
 	int a_len;
 
 	a_len = get_pile_length(p_a);
-	min = p_a[1];
+	min = p_a[0];
+	if (p_a[1] < min)
+		min = p_a[1];
 	if (p_a[2] < min)
 		min = p_a[2];
 	if (p_a[a_len - 1] < min)
@@ -156,6 +158,8 @@ int		maybe_better_rotate(int *p_a, int *p_b)
 		printf("Actually Better to rotate and try again.\n");
 		return (1);
 	}
+	// if (p_a[0] - p_b[0] > 5 || p_b[0] - p_a[0] > 5)
+	// 	return (1);
 	return (0);
 }
 
@@ -248,12 +252,20 @@ void    sort_algo(int *pile_a, int *pile_b)
 		}
 		else
 		{
-			printf("Going to find MIN and push it into pile B\n");
-			operations += find_min_to_push(pile_a, pile_b);
-			a_length = get_pile_length(pile_a);
-			b_length = get_pile_length(pile_b);
-			print_piles(pile_a, pile_b);
-			printf("Number of operations: %d\n", operations);
+			// if (maybe_better_rotate(pile_a, pile_a))
+			// {
+			// 	rotate_pile(pile_a);
+			// 	operations++;
+			// }
+			// else
+			// {
+				printf("Going to find MIN and push it into pile B\n");
+				operations += find_min_to_push(pile_a, pile_b);
+				a_length = get_pile_length(pile_a);
+				b_length = get_pile_length(pile_b);
+				print_piles(pile_a, pile_b);
+				printf("Number of operations: %d\n", operations);
+			// }
 		}
 		if (pile_a[0] > pile_a[a_length - 1] && pile_b[0] < pile_b[b_length - 1])
 		{

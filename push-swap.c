@@ -142,7 +142,8 @@ int     main(int argc, char **argv)
 			i++;
 		}
 		order_numbers(pile_a, copy_a);
-		sort_algo(pile_a, pile_b);
+		// sort_algo(pile_a, pile_b);
+		sort_algo2(pile_a, pile_b);
 	}
 	last_check(pile_a);
 	return (0);

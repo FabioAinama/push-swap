@@ -105,3 +105,39 @@ int		order_b(int *pile, int b_length)
 	print_pile(pile);
 	return (operations);
 }
+
+
+
+int		order_b2(int *pile)
+{
+	int length;
+	int operations;
+
+	length = get_pile_length(pile);
+	operations = 0;
+	if (length >= 2)
+	{
+		if (pile[0] < pile[length - 1])
+		{
+			printf("Going to rotate B\n");
+			rotate_pile(pile);
+			operations++;
+		}
+		if (pile[length - 1] - pile[0] > pile[0] - pile[1])
+		{
+			printf("Going to rev-rotate, swp, and rotate(x2) B\n");
+			reverse_rotate_pile(pile);
+			swap_pile(pile);
+			rotate_pile(pile);
+			rotate_pile(pile);
+			operations += 4;
+		}
+		if (pile[0] < pile[1])
+		{
+			printf("Going to swap B\n");
+			swap_pile(pile);
+			operations++;
+		}
+	}
+	return (operations);
+}
