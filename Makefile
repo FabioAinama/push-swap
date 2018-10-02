@@ -12,7 +12,7 @@
 
 all :
 	@echo "Compilation..."
-	@gcc push-swap.c sort-algo.c sort_algo2.c transform-numbers.c checker.c order-b.c order-a.c libft/libft.a
+	@gcc push-swap.c sort-algo.c sort_algo2.c transform-numbers.c checker.c order-b.c order-a.c helper.c libft/libft.a
 	@echo "Compilation terminée..."	
 
 test0 :
@@ -35,6 +35,15 @@ test5 :
 
 test6 :
 	@./a.out 21 7 31 38 4 43 32 30 11 41 6 26 10 25 39 1 20 42 9 14 33 2 18 34 23 22 13 44 35 19 36 12 17 37 45 27 3 24 28 40 15 8 16 5 29
+
+test7 :
+	@./a.out 21 7 31 50 38 4 43 32 30 46 11 41 6 26 10 25 39 48 1 20 42 9 14 33 2 18 34 23 22 13 44 49 35 19 36 12 17 37 45 27 3 47 24 28 40 15 8 16 5 29
+
+test8 :
+	@./a.out 21 7 31 50 57 38 4 43 32 52 30 46 11 41 6 51 26 10 55 25 39 48 1 20 42 9 14 33 2 18 34 23 22 13 54 44 49 35 19 36 58 12 17 37 45 59 27 53 3 47 24 28 40 56 15 8 16 5 60 29
+
+test9 :
+	@./a.out 61 21 7 31 50 57 38 63 4 43 32 52 30 62 46 11 41 6 51 26 10 55 25 39 48 1 20 42 9 14 33 2 18 34 23 22 13 54 44 49 35 19 36 58 12 17 37 45 59 64 27 53 3 47 24 28 40 56 15 8 16 5 60 29 65
 
 random100 :
 	ARG=`ruby -e "puts (1..100).to_a.shuffle.join(' ')"`;

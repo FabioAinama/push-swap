@@ -107,44 +107,40 @@ void	swap_both(int *pile_a, int *pile_b)
 
 int     main(int argc, char **argv)
 {
-	int *pile_a;
 	int *pile_b;
 	int *copy_a;
 	int i;
+	t_pile *a;
+	t_pile *b;
+
+	a = (t_pile*)malloc(sizeof(t_pile));
+	b = (t_pile*)malloc(sizeof(t_pile));
 
 	i = 0;
-	pile_a = (int *)malloc(sizeof(int) * argc);
-	pile_b = (int *)malloc(sizeof(int) * argc);
+	a->pile = (int *)malloc(sizeof(int) * argc);
+	b->pile = (int *)malloc(sizeof(int) * argc);
+	a->min = 0;
+	a->max = 0;
+	a->last_sorted = 0;
+	b->min = 0;
+	b->max = 0;
 	copy_a = (int *)malloc(sizeof(int) * argc);
-	pile_a[argc - 1] = 0;
-	pile_b[0] = 0;
+	a->pile[argc - 1] = 0;
+	b->pile[0] = 0;
 	while (i < argc - 1)
 	{
-		pile_a[i] = ft_atoi(argv[i + 1]);
-		copy_a[i] = pile_a[i];
+		a->pile[i] = ft_atoi(argv[i + 1]);
+		copy_a[i] = a->pile[i];
 		i++;
 	}
-	i = 0;
 	if (argc > 1)
 	{
-		// push_pile(pile_a, pile_b);
-		// swap_pile(pile_a);
-		// reverse_rotate_pile(pile_a);
-		while (pile_a[i] != 0)
-		{
-			printf("Pile A: %d\n", pile_a[i]);
-			i++;
-		}
-		i = 0;
-		while (pile_b[i] != 0)
-		{
-			printf("Pile B: %d\n", pile_b[i]);
-			i++;
-		}
-		order_numbers(pile_a, copy_a);
-		// sort_algo(pile_a, pile_b);
-		sort_algo2(pile_a, pile_b);
+		print_pile(a->pile, 'A');
+		print_pile(b->pile, 'B');		
+		order_numbers(a->pile, copy_a);
+		// sort_algo(a->pile, b->pile);
+		sort_algo2(a, b);
 	}
-	last_check(pile_a);
+	last_check(a->pile);
 	return (0);
 }

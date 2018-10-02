@@ -49,14 +49,14 @@ void	print_piles(int *pile_a, int *pile_b)
 	printf("----------------------------------------\n");	
 }
 
-void	print_pile(int *pile)
+void	print_pile(int *pile, char c)
 {
 	int i;
 
 	i = 0;			
 	while (pile[i] != 0)
 	{
-		printf("Pile B: %10d\n", pile[i]);
+		printf("Pile %c: %10d\n", c, pile[i]);
 		i++;
 	}
 	printf("----------------------------------------\n");
