@@ -25,6 +25,71 @@ void		find_min(t_pile *p)
 	}
 }
 
+void		find_max(t_pile *p)
+{
+	int i;
+
+	i = 0;
+	p->max = 0;
+	while (i < p->len)
+	{
+		if (p->pile[i] > p->max)
+			p->max = p->pile[i];
+		i++;
+	}
+}
+
+
+int			push_number_to_top(t_pile *src, t_pile *dst, int min)
+{
+	int i;
+	int operations;
+
+	i = 0;
+	operations = 0;
+	while (i < src->len && src->pile[i] != min)
+		i++;
+	if (i * 2 > src->len)
+	{
+		while (src->pile[0] != min)
+		{
+			operations += reverse_rotate_pile2(src);
+			// if (dst->pile[0] == (src->pile[0] + 1))
+			// 	operations += push_pile2(src, dst);
+		}
+	}
+	else
+	{
+		while (src->pile[0] != min)
+		{
+			operations += rotate_pile2(src);
+			// if (dst->pile[0] == (src->pile[0] + 1))
+			// 	operations += push_pile2(src, dst);
+		}
+	}
+	return (operations);
+}
+
+int		find_push_min(t_pile *b, t_pile *a)
+{
+	int op;
+
+	op = 0;
+	if (b->pile[0] == b->max)
+		return (push_pile2(b, a));
+	if (b->pile[0] == 1 || b->pile[0] == a->pile[a->len - 1] + 1)
+	{
+		op += push_pile2(b, a);
+		op += rotate_pile2(a);
+	}
+	else
+	{
+		//
+		op += push_min_to_top(b, a);
+	}
+	return (op);
+}
+
 int			push_min_to_top(t_pile *src, t_pile *dst)
 {
 	int i;
@@ -32,6 +97,7 @@ int			push_min_to_top(t_pile *src, t_pile *dst)
 
 	i = 0;
 	operations = 0;
+	find_min(src);
 	while (i < src->len && src->pile[i] != src->min)
 		i++;
 	if (dst->pile[0] == (src->pile[0] + 1))
@@ -65,8 +131,9 @@ int			push_min_to_top(t_pile *src, t_pile *dst)
 	return (operations);
 }
 
-int	    push_pile2(t_pile *src, t_pile *dst)
+int		push_pile2(t_pile *src, t_pile *dst)
 {
+	// Ici il faut trouver le nouveau max de src si src max est deplacé
 	int i;
 
 	i = 0;
@@ -80,28 +147,28 @@ int	    push_pile2(t_pile *src, t_pile *dst)
 		dst->pile[i] = dst->pile[i - 1];
 		i--;
 	}
-    dst->pile[0] = src->pile[0];
-	// Decale src vers le haut
+	dst->pile[0] = src->pile[0];
 	while (src->pile[i] != 0)
 	{
 		src->pile[i] = src->pile[i + 1];
 		i++;
-    }
-    if (dst->pile[0] > dst->max)
-        dst->max = dst->pile[0];
-    if (dst->pile[0] < dst->min || dst->min == 0)
-        dst->min = dst->pile[0];
-    dst->len++;
+	}
+	if (dst->pile[0] > dst->max)
+		dst->max = dst->pile[0];
+	if (dst->pile[0] < dst->min || dst->min == 0)
+		dst->min = dst->pile[0];
+	dst->len++;
 	src->len--;
 	if (src->len == 0)
 	{
 		src->min = 0;
 		src->max = 0;
 	}
-    return (1);
+	find_max(src);
+	return (1);
 }
 
-int	    swap_pile2(t_pile *p)
+int		swap_pile2(t_pile *p)
 {
 	int tmp;
 
@@ -110,8 +177,8 @@ int	    swap_pile2(t_pile *p)
 		tmp = p->pile[1];
 		p->pile[1] = p->pile[0];
 		p->pile[0] = tmp;
-    }
-    return (1);
+	}
+	return (1);
 }
 
 int		rotate_pile2(t_pile *p)
@@ -139,16 +206,16 @@ int 	reverse_rotate_pile2(t_pile *p)
 	int length;
 
 	length = p->len - 1;
-    tmp = p->pile[length];
-    if (length < 1)
-        return (0);
+	tmp = p->pile[length];
+	if (length < 1)
+		return (0);
 	while (length > 0)
 	{
 		p->pile[length] = p->pile[length - 1];
 		length--;
 	}
-    p->pile[0] = tmp;
-    return (1);
+	p->pile[0] = tmp;
+	return (1);
 }
 
 void	find_last_sorted_rev(t_pile *p)
@@ -180,18 +247,3 @@ void	find_last_sorted(t_pile *p)
 		i++;
 	}
 }
-
-
-// int     find_max(t_pile *p)
-// {
-//     int i;
-//     int max;
-
-//     i = 0;
-//     max
-//     while (i < p->len)
-//     {
-//         if (p->pile[i] > )
-//         i++;
-//     }
-// }

@@ -105,7 +105,7 @@ void	swap_both(int *pile_a, int *pile_b)
 	swap_pile(pile_b);
 }
 
-int     main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	int *pile_b;
 	int *copy_a;
