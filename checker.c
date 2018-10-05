@@ -21,11 +21,11 @@ void	last_check(int *pile)
 	{
 		if (pile[i] > pile[i + 1] && pile[i + 1] != 0)
 		{
-			printf("\x1B[31m------------------FAIL------------------\n");
+			printf("\x1B[31mKO\n");
 			break;
 		}
 		i++;
 	}
 	if (pile[i] == 0)
-		printf("\x1B[32m------------------SUCCESS------------------\n");
+		printf("\x1B[32mOK\n");
 }

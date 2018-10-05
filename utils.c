@@ -44,19 +44,34 @@ void	get_average(t_pile *p)
 	}
 }
 
-int		contain_number(t_pile *p, int number)
+int		get_average_pivot(t_pile *p, int pivot)
 {
 	int i;
+	int sum;
 
 	i = 0;
-	// printf("Contain number called. Length of pile: %d\n", p->len);
-	while (i < p->len)
+	sum = 0;
+	if (p->len > 0)
 	{
-		if (p->pile[i] == number)
-			return (1);
-		i++;
+		while (i < p->len && p->pile[i] <= pivot && p->pile[i] != 1)
+		{
+			sum += p->pile[i];
+			i++;
+		}
+		if (i == 0)
+			return (0);
+		else
+			return ((int)(sum / i));
 	}
 	return (0);
 }
 
-// int		find_push_number(t_pile *p, int number)
+int		get_pile_length(int *pile)
+{
+	int i;
+
+	i = 0;
+	while (pile[i] != 0)
+		i++;
+	return (i);
+}

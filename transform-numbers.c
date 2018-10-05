@@ -12,51 +12,48 @@
 
 #include "push-swap.h"
 
-void	transform_numbers(int *pile, int *copy)
+void	transform_numbers(t_pile *a, t_pile *cpy)
 {
 	int nb;
-	int length;
 	int i;
 	int j;
 
-	length = get_pile_length(copy);
 	i = 0;
-	while (i < length)
+	while (i < a->len)
 	{
 		j = 0;
-		nb = copy[i];
-		while (pile[j] != nb)
+		nb = cpy->pile[i];
+		while (a->pile[j] != nb)
 			j++;
-		pile[j] = i + 1;
+		a->pile[j] = i + 1;
 		i++;
 	}
-	// print_pile(pile);
 }
 
-void	order_numbers(int *pile, int *copy)
+void	order_numbers(t_pile *a, t_pile *cpy)
 {
 	int length;
 	int i;
 	int j;
 	int tmp;
 
-	length = get_pile_length(copy) - 1;
+	a->len = get_pile_length(a->pile) - 1;
+	cpy->len = a->len;
 	j = 0;
-	while (j < length)
+	while (j < a->len)
 	{
 		i = 0;
-		while (i < length - j)
+		while (i < a->len - j)
 		{
-			if (copy[i] > copy[i + 1])
+			if (cpy->pile[i] > cpy->pile[i + 1])
 			{
-				tmp = copy[i + 1];
-				copy[i + 1] = copy[i];
-				copy[i] = tmp;
+				tmp = cpy->pile[i + 1];
+				cpy->pile[i + 1] = cpy->pile[i];
+				cpy->pile[i] = tmp;
 			}
 			i++;
 		}
 		j++;
 	}
-	// print_pile(copy);
-	transform_numbers(pile, copy);
+	transform_numbers(a, cpy);
 }

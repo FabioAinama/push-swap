@@ -12,7 +12,7 @@
 
 #include "push-swap.h"
 
-void		find_min(t_pile *p)
+int			find_min(t_pile *p)
 {
 	int i;
 
@@ -23,9 +23,10 @@ void		find_min(t_pile *p)
 			p->min = p->pile[i];
 		i++;
 	}
+	return (p->min);
 }
 
-void		find_max(t_pile *p)
+int			find_max(t_pile *p)
 {
 	int i;
 
@@ -37,110 +38,54 @@ void		find_max(t_pile *p)
 			p->max = p->pile[i];
 		i++;
 	}
+	return (p->max);
 }
 
-
-int			push_number_to_top(t_pile *src, t_pile *dst, int min)
+int			push_number_to_top(t_pile *b, t_pile *a, int nb)
 {
 	int i;
-	int operations;
-
-	i = 0;
-	operations = 0;
-	while (i < src->len && src->pile[i] != min)
-		i++;
-	if (i * 2 > src->len)
-	{
-		while (src->pile[0] != min)
-		{
-			operations += reverse_rotate_pile2(src);
-			// if (dst->pile[0] == (src->pile[0] + 1))
-			// 	operations += push_pile2(src, dst);
-		}
-	}
-	else
-	{
-		while (src->pile[0] != min)
-		{
-			operations += rotate_pile2(src);
-			// if (dst->pile[0] == (src->pile[0] + 1))
-			// 	operations += push_pile2(src, dst);
-		}
-	}
-	return (operations);
-}
-
-int		find_push_min(t_pile *b, t_pile *a)
-{
 	int op;
 
+	i = 0;
 	op = 0;
-	if (b->pile[0] == b->max)
-		return (push_pile2(b, a));
-	if (b->pile[0] == 1 || b->pile[0] == a->pile[a->len - 1] + 1)
+	while (i < b->len && b->pile[i] != nb)
+		i++;
+	if (i * 2 > b->len)
 	{
-		op += push_pile2(b, a);
-		op += rotate_pile2(a);
+		while (b->pile[0] != nb)
+		{
+			if (b->pile[0] == a->pile[a->len - 1] + 1)
+			{
+				op += push_pile(b, a);
+				op += rotate_pile(a, 0);
+			}
+			op += reverse_rotate_pile(b, 0);
+		}
 	}
 	else
 	{
-		//
-		op += push_min_to_top(b, a);
+		while (b->pile[0] != nb)
+		{
+			if (b->pile[0] == a->pile[a->len - 1] + 1)
+			{
+				op += push_pile(b, a);
+				op += rotate_both(a, b);
+			}
+			else
+				op += rotate_pile(b, 0);
+		}
 	}
 	return (op);
 }
 
-int			push_min_to_top(t_pile *src, t_pile *dst)
+int		push_pile(t_pile *src, t_pile *dst)
 {
-	int i;
-	int operations;
-
-	i = 0;
-	operations = 0;
-	find_min(src);
-	while (i < src->len && src->pile[i] != src->min)
-		i++;
-	if (dst->pile[0] == (src->pile[0] + 1))
-		operations += push_pile2(src, dst);
-	if (i * 2 > src->len)
-	{
-		while (src->pile[0] != src->min)
-		{
-			operations += reverse_rotate_pile2(src);
-			if (dst->pile[0] == (src->pile[0] + 1))
-			{
-				operations += push_pile2(src, dst);
-				src->min = 0;
-				find_min(src);
-			}
-		}
-	}
-	else
-	{
-		while (src->pile[0] != src->min)
-		{
-			operations += rotate_pile2(src);
-			if (dst->pile[0] == (src->pile[0] + 1))
-			{
-				operations += push_pile2(src, dst);
-				src->min = 0;
-				find_min(src);
-			}
-		}
-	}
-	return (operations);
-}
-
-int		push_pile2(t_pile *src, t_pile *dst)
-{
-	// Ici il faut trouver le nouveau max de src si src max est deplacé
 	int i;
 
 	i = 0;
 	if (src->pile[0] == 0)
 		return (0);
-	// Decale dst vers le bas, et copie le top de src dans le top de dst
-    i = dst->len;
+	i = dst->len;
 	dst->pile[i + 1] = 0;
 	while (i != 0)
 	{
@@ -165,10 +110,11 @@ int		push_pile2(t_pile *src, t_pile *dst)
 		src->max = 0;
 	}
 	find_max(src);
+	printf("p%c\n", dst->letter);
 	return (1);
 }
 
-int		swap_pile2(t_pile *p)
+int		swap_pile(t_pile *p, int both)
 {
 	int tmp;
 
@@ -178,72 +124,15 @@ int		swap_pile2(t_pile *p)
 		p->pile[1] = p->pile[0];
 		p->pile[0] = tmp;
 	}
+	if (both == 0)
+		printf("s%c\n", p->letter);
 	return (1);
 }
 
-int		rotate_pile2(t_pile *p)
+int		swap_both(t_pile *a, t_pile *b)
 {
-	int tmp;
-	int i;
-
-	i = 0;
-	tmp = p->pile[0];
-	if (p->len < 2)
-		return (0);
-	while (p->pile[i] != 0)
-	{
-		p->pile[i] = p->pile[i + 1];
-		i++;
-	}
-	p->pile[i - 1] = tmp;
-	p->pile[i] = 0;
+	swap_pile(a, 1);
+	swap_pile(b, 1);
+	printf("ss\n");
 	return (1);
-}
-
-int 	reverse_rotate_pile2(t_pile *p)
-{
-	int tmp;
-	int length;
-
-	length = p->len - 1;
-	tmp = p->pile[length];
-	if (length < 1)
-		return (0);
-	while (length > 0)
-	{
-		p->pile[length] = p->pile[length - 1];
-		length--;
-	}
-	p->pile[0] = tmp;
-	return (1);
-}
-
-void	find_last_sorted_rev(t_pile *p)
-{
-	int i;
-	printf("Find Last sorted Called\n");
-	i = p->len - 1;
-	while (i > 0)
-	{
-		printf("FLS: pile[i] = %d - pile[i - 1] = %d, i = %d\n", p->pile[i], p->pile[i - 1], i);
-	
-		if (p->pile[i] == p->pile[i - 1] - 1)
-			p->last_sorted = p->pile[i - 1];
-		i--;
-	}
-}
-
-void	find_last_sorted(t_pile *p)
-{
-	int i;
-	printf("Find Last sorted Called\n");
-	i = 0;
-	while (i < p->len)
-	{
-		printf("FLS: pile[i] = %d - pile[i - 1] = %d, i = %d\n", p->pile[i], p->pile[i - 1], i);
-	
-		if (p->pile[i] == p->pile[i + 1] + 1)
-			p->last_sorted = p->pile[i - 1];
-		i++;
-	}
 }
