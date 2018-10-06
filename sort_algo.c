@@ -67,13 +67,13 @@ int		push_to_merge(t_pile *a, t_pile *b)
 	{
 		if (b->len <= 15)
 		{
-			op += push_number_to_top(b, a, b->max);
+			op += push_number_to_top(b, a, b->max); // Amelio possible
 			op += push_pile(b, a);
 		}
 		else if (b->pile[0] == 1 || b->pile[0] == (a->pile[a->len - 1] + 1))
 		{
 			op += push_pile(b, a);
-			op += rotate_pile(a, 0);
+			op += rotate_pile(a, 0); // Amelio possible
 		}
 		else if (b->pile[0] >= b->avg)
 			op += push_pile(b, a);

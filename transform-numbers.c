@@ -23,9 +23,9 @@ void	transform_numbers(t_pile *a, t_pile *cpy)
 	{
 		j = 0;
 		nb = cpy->pile[i];
-		while (a->pile[j] != nb)
+		while (a->pile[i] != cpy->pile[j] && j < a->len)
 			j++;
-		a->pile[j] = i + 1;
+		a->pile[i] = j + 1;
 		i++;
 	}
 }
@@ -37,13 +37,12 @@ void	order_numbers(t_pile *a, t_pile *cpy)
 	int j;
 	int tmp;
 
-	a->len = get_pile_length(a->pile) - 1;
 	cpy->len = a->len;
 	j = 0;
-	while (j < a->len)
+	while (j < a->len - 1)
 	{
 		i = 0;
-		while (i < a->len - j)
+		while (i < a->len - 1 - j)
 		{
 			if (cpy->pile[i] > cpy->pile[i + 1])
 			{

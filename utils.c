@@ -75,3 +75,36 @@ int		get_pile_length(int *pile)
 		i++;
 	return (i);
 }
+
+
+// void	print_piles(int *pile_a, int *pile_b)
+// {
+// 	int i;
+
+// 	i = 0;			
+// 	while (i < p->len)
+// 	{
+// 		printf("Pile A: %-10d\n", pile_a[i]);
+// 		i++;
+// 	}
+// 	i = 0;
+// 	while (i < p->len)
+// 	{
+// 		printf("Pile B: %10d\n", pile_b[i]);
+// 		i++;
+// 	}
+// 	printf("----------------------------------------\n");	
+// }
+
+void	print_pile(t_pile *p)
+{
+	int i;
+
+	i = 0;			
+	while (i < p->len)
+	{
+		printf("Pile %c: %10d\n", p->letter, p->pile[i]);
+		i++;
+	}
+	printf("----------------------------------------\n");	
+}

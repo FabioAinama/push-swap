@@ -21,7 +21,7 @@ int		rotate_pile(t_pile *p, int both)
 	tmp = p->pile[0];
 	if (p->len < 2)
 		return (0);
-	while (p->pile[i] != 0)
+	while (i < p->len)
 	{
 		p->pile[i] = p->pile[i + 1];
 		i++;

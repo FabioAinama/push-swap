@@ -133,6 +133,6 @@ int		swap_both(t_pile *a, t_pile *b)
 {
 	swap_pile(a, 1);
 	swap_pile(b, 1);
-	printf("ss\n");
+	ft_putendl("ss");
 	return (1);
 }

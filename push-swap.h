@@ -24,12 +24,11 @@ typedef struct	s_pile
 	int max;
 	int avg;
 	int len;
-	int last_sorted;
 }				t_pile;
 
 int		get_pile_length(int *pile);
 void	order_numbers(t_pile *a, t_pile *cpy);
-void	last_check(int *pile);
+void	last_check(t_pile *p);
 
 void	sort_algo2(t_pile *a, t_pile *b);
 int 	push_pile(t_pile *src, t_pile *dst);
