@@ -41,25 +41,42 @@ int			find_max(t_pile *p)
 	return (p->max);
 }
 
-int			push_number_to_top(t_pile *b, t_pile *a, int nb)
+int			closer_to_which(t_pile *p, int nb)
 {
 	int i;
-	int op;
 
 	i = 0;
-	op = 0;
-	while (i < b->len && b->pile[i] != nb)
+	while (i < p->len && p->pile[i] != nb)
 		i++;
-	if (i * 2 > b->len)
+	if (i * 2 > p->len)
+		return (1);
+	else
+		return (0);
+}
+
+int			push_number_to_top(t_pile *b, t_pile *a, int nb)
+{
+	// int i;
+	int op;
+
+	// i = 0;
+	op = 0;
+	// while (i < b->len && b->pile[i] != nb)
+	// 	i++;
+	if (closer_to_which(b, nb))
 	{
 		while (b->pile[0] != nb)
 		{
 			if (b->pile[0] == a->pile[a->len - 1] + 1)
 			{
-				op += push_pile(b, a);
-				op += rotate_pile(a, 0);
+				op += push_pile(b, a, 1);
+				if (closer_to_which(b, nb + 1))
+					op += rotate_both(a, b, 1);
+				else
+					op += rotate_pile(a, 1);
 			}
-			op += reverse_rotate_pile(b, 0);
+			else
+				op += reverse_rotate_pile(b, 1);
 		}
 	}
 	else
@@ -68,71 +85,15 @@ int			push_number_to_top(t_pile *b, t_pile *a, int nb)
 		{
 			if (b->pile[0] == a->pile[a->len - 1] + 1)
 			{
-				op += push_pile(b, a);
-				op += rotate_both(a, b);
+				op += push_pile(b, a, 1);
+				// if (closer_to_which(b, nb + 1))
+				// 	op += rotate_both(a, b, 1);
+				// else
+					op += rotate_pile(a, 1);
 			}
 			else
-				op += rotate_pile(b, 0);
+				op += rotate_pile(b, 1);
 		}
 	}
 	return (op);
-}
-
-int		push_pile(t_pile *src, t_pile *dst)
-{
-	int i;
-
-	i = 0;
-	if (src->pile[0] == 0)
-		return (0);
-	i = dst->len;
-	dst->pile[i + 1] = 0;
-	while (i != 0)
-	{
-		dst->pile[i] = dst->pile[i - 1];
-		i--;
-	}
-	dst->pile[0] = src->pile[0];
-	while (src->pile[i] != 0)
-	{
-		src->pile[i] = src->pile[i + 1];
-		i++;
-	}
-	if (dst->pile[0] > dst->max)
-		dst->max = dst->pile[0];
-	if (dst->pile[0] < dst->min || dst->min == 0)
-		dst->min = dst->pile[0];
-	dst->len++;
-	src->len--;
-	if (src->len == 0)
-	{
-		src->min = 0;
-		src->max = 0;
-	}
-	find_max(src);
-	printf("p%c\n", dst->letter);
-	return (1);
-}
-
-int		swap_pile(t_pile *p, int both)
-{
-	int tmp;
-
-	if (p->len > 1)
-	{
-		tmp = p->pile[1];
-		p->pile[1] = p->pile[0];
-		p->pile[0] = tmp;
-	}
-	if (both == 0)
-		printf("s%c\n", p->letter);
-	return (1);
-}
-
-int		swap_both(t_pile *a, t_pile *b)
-{
-	swap_pile(a, 1);
-	swap_pile(b, 1);
-	ft_putendl("ss");
-	return (1);
 }

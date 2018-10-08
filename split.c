@@ -24,12 +24,12 @@ int		split_a(t_pile *a, t_pile *b, int pivot)
 		if (a->pile[0] > pivot)
 		{
 			if (b->pile[0] < (pivot / 2))
-				op += rotate_both(a, b);
+				op += rotate_both(a, b, 1);
 			else
-				op += rotate_pile(a, 0);
+				op += rotate_pile(a, 1);
 		}
 		else
-			op += push_pile(a, b);
+			op += push_pile(a, b, 1);
 	}
 	return (op);
 }

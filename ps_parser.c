@@ -12,4 +12,96 @@
 
 #include "push-swap.h"
 
+t_pile	*init_pile(int c, int length)
+{
+	t_pile *p;
 
+	if (!(p = (t_pile*)malloc(sizeof(t_pile))))
+		return (NULL);
+	if (!(p->pile = (int *)malloc(sizeof(int) * (length + 1))))
+		return (NULL);
+	p->min = 0;
+	p->max = 0;
+	p->len = length;
+	p->letter = c;
+	return (p);
+}
+
+int		get_length_args(int argc, char **argv)
+{
+	int i;
+	int j;
+	int k;
+	char **tab;
+
+	i = 0;
+	k = 0;
+	while (i < argc)
+	{
+		j = 0;
+		tab = NULL;
+		tab = ft_strsplit(argv[i], ' ');
+		while (tab[j])
+		{
+			// ft_strdel(&tab[j]);
+			j++;
+			k++;
+		}
+		free(tab);
+		i++;
+	}
+	return (k);
+}
+
+void	fill_piles(t_pile *a, t_pile *c, int argc, char **argv)
+{
+	int i;
+	int j;
+	int k;
+	char **tab;
+
+	i = 0;
+	k = 0;
+	while (i < argc - 1)
+	{
+		j = 0;
+		tab = NULL;
+		tab = ft_strsplit(argv[i + 1], ' ');
+		while (tab[j])
+		{
+			a->pile[k] = ft_atoi(tab[j]);
+			c->pile[k] = a->pile[k];
+			ft_strdel(&tab[j]);
+			k++;
+			j++;
+		}
+		free(tab);
+		i++;
+	}
+}
+
+void	fill_pile(t_pile *a, int argc, char **argv)
+{
+	int i;
+	int j;
+	int k;
+	char **tab;
+
+	i = 0;
+	k = 0;
+	while (i < argc - 1)
+	{
+		j = 0;
+		tab = NULL;
+		tab = ft_strsplit(argv[i + 1], ' ');
+		while (tab[j])
+		{
+			a->pile[k] = ft_atoi(tab[j]);
+			ft_strdel(&tab[j]);
+			k++;
+			j++;
+		}
+		free(tab);
+		i++;
+	}
+}
