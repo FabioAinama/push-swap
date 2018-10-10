@@ -6,15 +6,10 @@ int		quicksort(t_pile *a, t_pile *b, int pivot)
 	int op;
 
 	op = 0;
-	while (a->pile[0] <= pivot && a->pile[0] != 1)
+	while (a->pile[a->len - 1] <= pivot && a->pile[a->len - 1] != 1)
 	{
-		if (a->pile[0] == a->pile[a->len - 1] + 1)
-		{
-			// if (b->pile[0] < b->pile[b->len - 1])
-			// 	op += rotate_both(a, b, 1);
-			// else
-				op += rotate_pile(a, 1);
-		}
+		if (a->pile[a->len - 1] == a->pile[0] + 1)
+			op += rotate_pile(a, 1);
 		else
 			op += push_pile(a, b, 1);
 	}
@@ -33,14 +28,11 @@ int		quicksort_split(t_pile *a, t_pile *b, int pivot)
 	nb_rot = 0;
 	if (!(avg = get_average_pivot(a, pivot)))
 		return (0);
-	while (a->pile[0] <= pivot && a->pile[0] != 1)
+	while (a->pile[a->len - 1] <= pivot && a->pile[a->len - 1] != 1)
 	{
-		if (a->pile[0] >= avg)
+		if (a->pile[a->len - 1] >= avg)
 		{
-			// if (b->pile[0] < b->pile[b->len - 1])
-			// 	op += rotate_both(a, b, 1);
-			// else
-				op += rotate_pile(a, 1);
+			op += rotate_pile(a, 1);
 			nb_rot++;
 		}
 		else
@@ -48,7 +40,7 @@ int		quicksort_split(t_pile *a, t_pile *b, int pivot)
 	}
 	while (nb_rot--)
 	{
-		if (b->pile[0] < b->pile[b->len - 1])
+		if (b->pile[b->len - 1] < b->pile[0] && b->len > 1)
 			op += reverse_rotate_both(a, b, 1);
 		else
 			op += reverse_rotate_pile(a, 1);
@@ -75,26 +67,26 @@ int		push_to_merge(t_pile *a, t_pile *b)
 	{
 		if (b->len <= 13)
 		{
-			op += push_number_to_top(b, a, b->max); // Amelio possible
+			op += push_number_to_top(b, a, b->max);
 			op += push_pile(b, a, 1);
 		}
-		else if (b->pile[0] == 1 || b->pile[0] == (a->pile[a->len - 1] + 1))
+		else if (b->pile[b->len - 1] == 1 || b->pile[b->len - 1] == (a->pile[0] + 1))
 		{
 			op += push_pile(b, a, 1);
-			if (b->pile[0] < b->avg && b->pile[0] != (a->pile[a->len - 1] + 2))
+			if (b->pile[b->len - 1] < b->avg && b->pile[b->len - 1] != (a->pile[0] + 2) && b->len > 1)
 				op += rotate_both(a, b, 1);
 			else
 				op += rotate_pile(a, 1);
 		}
-		else if (b->pile[0] >= b->avg)
+		else if (b->pile[b->len - 1] >= b->avg)
 			op += push_pile(b, a, 1);
 		else
 			op += rotate_pile(b, 1);
 		length--;
 	}
-	while (!sorted(a) && (a->pile[0] == 1 || a->pile[0] == a->pile[a->len - 1] + 1))
+	while (!sorted(a) && (a->pile[a->len - 1] == 1 || a->pile[a->len - 1] == (a->pile[0] + 1)))
 	{
-		if (b->pile[0] < b->pile[b->len - 1])
+		if (b->pile[b->len - 1] < b->pile[0] && b->len > 1)
 			op += rotate_both(a, b, 1);
 		else
 			op += rotate_pile(a, 1);

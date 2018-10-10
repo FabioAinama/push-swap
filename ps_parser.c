@@ -61,7 +61,7 @@ void	fill_piles(t_pile *a, t_pile *c, int argc, char **argv)
 	char **tab;
 
 	i = 0;
-	k = 0;
+	k = argc - 2;
 	while (i < argc - 1)
 	{
 		j = 0;
@@ -69,10 +69,10 @@ void	fill_piles(t_pile *a, t_pile *c, int argc, char **argv)
 		tab = ft_strsplit(argv[i + 1], ' ');
 		while (tab[j])
 		{
-			a->pile[k] = ft_atoi(tab[j]);
+			a->pile[k] = ft_atoi(tab[j]); // exit si nb est superieur a l'int max
 			c->pile[k] = a->pile[k];
 			ft_strdel(&tab[j]);
-			k++;
+			k--;
 			j++;
 		}
 		free(tab);
@@ -88,7 +88,8 @@ void	fill_pile(t_pile *a, int argc, char **argv)
 	char **tab;
 
 	i = 0;
-	k = 0;
+	k = argc - 2;
+	a->pile[k + 1] = 0;
 	while (i < argc - 1)
 	{
 		j = 0;
@@ -98,7 +99,7 @@ void	fill_pile(t_pile *a, int argc, char **argv)
 		{
 			a->pile[k] = ft_atoi(tab[j]);
 			ft_strdel(&tab[j]);
-			k++;
+			k--;
 			j++;
 		}
 		free(tab);

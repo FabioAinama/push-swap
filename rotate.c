@@ -12,7 +12,7 @@
 
 #include "push-swap.h"
 
-int		rotate_pile(t_pile *p, int print)
+int		reverse_rotate_pile(t_pile *p, int print)
 {
 	int tmp;
 	int i;
@@ -30,7 +30,7 @@ int		rotate_pile(t_pile *p, int print)
 	p->pile[i] = 0;
 	if (print == 1)
 	{
-		ft_putstr("r");
+		ft_putstr("rr");
 		ft_putchar(p->letter);
 		ft_putstr("\n");
 	}
@@ -42,18 +42,18 @@ int		rotate_both(t_pile *a, t_pile *b, int print)
 	rotate_pile(a, 0);
 	rotate_pile(b, 0);
 	if (print == 1)
-		ft_putendl("rr\n");
+		ft_putendl("rr");
 	return (1);
 }
 
-int 	reverse_rotate_pile(t_pile *p, int print)
+int 	rotate_pile(t_pile *p, int print)
 {
 	int tmp;
 	int length;
 
 	length = p->len - 1;
 	tmp = p->pile[length];
-	if (length < 1)
+	if (length < 2)
 		return (0);
 	while (length > 0)
 	{
@@ -63,7 +63,7 @@ int 	reverse_rotate_pile(t_pile *p, int print)
 	p->pile[0] = tmp;
 	if (print == 1)
 	{
-		ft_putstr("rr");
+		ft_putstr("r");
 		ft_putchar(p->letter);
 		ft_putstr("\n");
 	}
@@ -75,6 +75,6 @@ int		reverse_rotate_both(t_pile *a, t_pile *b, int print)
 	reverse_rotate_pile(a, 0);
 	reverse_rotate_pile(b, 0);
 	if (print == 1)
-		ft_putendl("rrr\n");
+		ft_putendl("rrr");
 	return (1);
 }

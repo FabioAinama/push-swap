@@ -1,35 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split.c                                            :+:      :+:    :+:   */
+/*   simple-sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fginja-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/05 05:04:13 by fginja-d          #+#    #+#             */
-/*   Updated: 2018/10/05 05:04:14 by fginja-d         ###   ########.fr       */
+/*   Created: 2018/10/09 16:09:20 by fginja-d          #+#    #+#             */
+/*   Updated: 2018/10/09 16:09:22 by fginja-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push-swap.h"
 
-int		split_a(t_pile *a, t_pile *b, int pivot)
+static int	rev_sorted_until(t_pile *p)
 {
-	int half;
+	int i;
+
+	i = 0;
+	while (p->pile[i] > p->pile[i + 1] && i < p->len)
+		i++;
+	return (i);
+}
+
+static int	sorted_until(t_pile *p)
+{
+	int i;
+
+	i = p->len - 1;
+	while (p->pile[i] < p->pile[i - 1])
+		i--;
+	return (i);
+}
+
+int		simple_sort(t_pile *a, t_pile *b)
+{
 	int op;
 
-	half = a->len / 2;
 	op = 0;
-	while (a->len > half)
-	{
-		if (a->pile[a->len - 1] > pivot)
-		{
-			if (b->pile[b->len - 1] < (pivot / 2) && b->len > 1)
-				op += rotate_both(a, b, 1);
-			else
-				op += rotate_pile(a, 1);
-		}
-		else
-			op += push_pile(a, b, 1);
-	}
+	if (a->pile[a->len - 1] > a->pile[a->len - 2])
+		swap_pile(a, 1);
+	
 	return (op);
 }

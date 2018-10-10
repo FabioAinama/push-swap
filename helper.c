@@ -48,7 +48,7 @@ int			closer_to_which(t_pile *p, int nb)
 	i = 0;
 	while (i < p->len && p->pile[i] != nb)
 		i++;
-	if (i * 2 > p->len)
+	if (i * 2 <= p->len)
 		return (1);
 	else
 		return (0);
@@ -65,9 +65,9 @@ int			push_number_to_top(t_pile *b, t_pile *a, int nb)
 	// 	i++;
 	if (closer_to_which(b, nb))
 	{
-		while (b->pile[0] != nb)
+		while (b->pile[b->len - 1] != nb)
 		{
-			if (b->pile[0] == a->pile[a->len - 1] + 1)
+			if (b->pile[b->len - 1] == a->pile[0] + 1)
 			{
 				op += push_pile(b, a, 1);
 				if (closer_to_which(b, nb + 1))
@@ -81,9 +81,9 @@ int			push_number_to_top(t_pile *b, t_pile *a, int nb)
 	}
 	else
 	{
-		while (b->pile[0] != nb)
+		while (b->pile[b->len - 1] != nb)
 		{
-			if (b->pile[0] == a->pile[a->len - 1] + 1)
+			if (b->pile[b->len - 1] == a->pile[0] + 1)
 			{
 				op += push_pile(b, a, 1);
 				// if (closer_to_which(b, nb + 1))

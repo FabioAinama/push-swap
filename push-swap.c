@@ -24,12 +24,15 @@ int		main(int argc, char **argv)
 	a = init_pile(97, length);
 	b = init_pile(98, length);
 	c = init_pile(99, length);
-	b->pile[0] = 0;
 	fill_piles(a, c, argc, argv);
+	while (length--)
+		b->pile[length] = 0;
+	b->pile[0] = 0;
+	// Je dois check si tout est order, je retourne rien, et que je ne lance que si j'ai plus d'un arg
 	if (argc > 1)
 	{
 		order_numbers(a, c);
 		sort_algo2(a, b);
 	}
-	return (1);
+	return (0);
 }

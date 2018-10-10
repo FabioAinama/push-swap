@@ -52,4 +52,7 @@ int		split_a(t_pile *a, t_pile *b, int pivot);
 t_pile	*init_pile(int c, int length);
 int		get_length_args(int argc, char **argv);
 
+void	print_pile(t_pile *p);
+void	print_piles(t_pile *a, t_pile *b);
+
 #endif

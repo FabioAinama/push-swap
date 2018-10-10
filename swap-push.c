@@ -12,30 +12,38 @@
 
 #include "push-swap.h"
 
-int		push_pile(t_pile *src, t_pile *dst, int print)
+void	print_piles2(t_pile *a, t_pile *b)
 {
 	int i;
 
-	i = 0;
-	if (src->pile[0] == 0)
-		return (0);
-	i = dst->len;
-	dst->pile[i + 1] = 0;
-	while (i != 0)
+	i = a->len - 1;
+	while (i >= 0)
 	{
-		dst->pile[i] = dst->pile[i - 1];
+		printf("Pile A: %-10d\n", a->pile[i]);
 		i--;
 	}
-	dst->pile[0] = src->pile[0];
-	while (src->pile[i] != 0)
+	printf("Pile A (Last): %-10d\n", a->pile[a->len]);
+	i = b->len - 1;
+	while (i >= 0)
 	{
-		src->pile[i] = src->pile[i + 1];
-		i++;
+		printf("Pile B: %10d\n", b->pile[i]);
+		i--;
 	}
-	if (dst->pile[0] > dst->max)
-		dst->max = dst->pile[0];
+	printf("Pile B (Last): %10d\n", b->pile[b->len]);
+	printf("----------------------------------------\n");	
+}
+
+int		push_pile(t_pile *src, t_pile *dst, int print)
+{
+	if (src->pile[0] == 0)
+		return (0);
+	dst->pile[dst->len] = src->pile[src->len - 1];
 	dst->len++;
+	dst->pile[dst->len] = 0;
 	src->len--;
+	src->pile[src->len] = 0;
+	if (dst->pile[dst->len - 1] > dst->max)
+		dst->max = dst->pile[dst->len - 1];
 	find_max(src);
 	if (print == 1)
 	{
@@ -52,9 +60,9 @@ int		swap_pile(t_pile *p, int print)
 
 	if (p->len > 1)
 	{
-		tmp = p->pile[1];
-		p->pile[1] = p->pile[0];
-		p->pile[0] = tmp;
+		tmp = p->pile[p->len - 2];
+		p->pile[p->len - 2] = p->pile[p->len - 1];
+		p->pile[p->len - 1] = tmp;
 	}
 	if (print == 0)
 	{

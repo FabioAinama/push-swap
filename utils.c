@@ -17,9 +17,9 @@ int		sorted(t_pile *p)
 	int i;
 
 	i = 0;
-	while (i < p->len - 1)
+	while (i < p->len)
 	{
-		if (p->pile[i] > p->pile[i + 1])
+		if (p->pile[i] < p->pile[i + 1])
 			return (0);
 		i++;
 	}
@@ -31,37 +31,41 @@ void	get_average(t_pile *p)
 	int i;
 	int sum;
 
-	i = 0;
+	i = p->len - 1;
 	sum = 0;
 	if (p->len > 0)
 	{
-		while (i < p->len)
+		while (i >= 0)
 		{
 			sum += p->pile[i];
-			i++;
+			i--;
 		}
 		p->avg = (sum / p->len);
 	}
 }
+
+/*
+** It's possible to change the value of the return (-1, -2...) to optimize the number of operations
+*/
 
 int		get_average_pivot(t_pile *p, int pivot)
 {
 	int i;
 	int sum;
 
-	i = 0;
+	i = p->len - 1;
 	sum = 0;
 	if (p->len > 0)
 	{
-		while (i < p->len && p->pile[i] <= pivot && p->pile[i] != 1)
+		while (i >= 0 && p->pile[i] <= pivot && p->pile[i] != 1)
 		{
 			sum += p->pile[i];
-			i++;
+			i--;
 		}
-		if (i == 0)
+		if (i == p->len - 1)
 			return (0);
 		else
-			return ((int)(sum / i));
+			return ((int)(sum / (p->len - i - 2)));
 	}
 	return (0);
 }
@@ -81,18 +85,20 @@ void	print_piles(t_pile *a, t_pile *b)
 {
 	int i;
 
-	i = 0;			
-	while (i < a->len)
+	i = a->len - 1;
+	while (i >= 0)
 	{
 		printf("Pile A: %-10d\n", a->pile[i]);
-		i++;
+		i--;
 	}
-	i = 0;
-	while (i < b->len)
+	// printf("Pile A (Last): %-10d\n", a->pile[a->len]);
+	i = b->len - 1;
+	while (i >= 0)
 	{
 		printf("Pile B: %10d\n", b->pile[i]);
-		i++;
+		i--;
 	}
+	// printf("Pile B (Last): %10d\n", b->pile[b->len]);
 	printf("----------------------------------------\n");	
 }
 
@@ -100,11 +106,11 @@ void	print_pile(t_pile *p)
 {
 	int i;
 
-	i = 0;			
-	while (i < p->len)
+	i = p->len - 1;
+	while (i >= 0)
 	{
 		printf("Pile %c: %10d\n", p->letter, p->pile[i]);
-		i++;
+		i--;
 	}
 	printf("----------------------------------------\n");	
 }

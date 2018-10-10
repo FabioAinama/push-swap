@@ -30,7 +30,7 @@ void	transform_numbers(t_pile *a, t_pile *cpy)
 	}
 }
 
-void	order_numbers(t_pile *a, t_pile *cpy)
+void	order_numbers(t_pile *a, t_pile *cpy) // A modifier en quicksort!!!!!!!!!
 {
 	int length;
 	int i;
