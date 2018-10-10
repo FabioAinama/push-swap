@@ -1,7 +1,7 @@
 
 #include "push-swap.h"
 
-int		quicksort(t_pile *a, t_pile *b, int pivot)
+int		quicksort(t_pile *a, t_pile *b, int pivot, int *res)
 {
 	int op;
 
@@ -9,16 +9,16 @@ int		quicksort(t_pile *a, t_pile *b, int pivot)
 	while (a->pile[a->len - 1] <= pivot && a->pile[a->len - 1] != 1)
 	{
 		if (a->pile[a->len - 1] == a->pile[0] + 1)
-			op += rotate_pile(a, 1);
+			op += rotate_pile(a, 1, res);
 		else
-			op += push_pile(a, b, 1);
+			op += push_pile(a, b, 1, res);
 	}
 	if (b->len != 0)
-		op += push_to_merge(a, b);
+		op += push_to_merge(a, b, res);
 	return (op);
 }
 
-int		quicksort_split(t_pile *a, t_pile *b, int pivot)
+int		quicksort_split(t_pile *a, t_pile *b, int pivot, int *res)
 {
 	int avg;
 	int op;
@@ -32,26 +32,26 @@ int		quicksort_split(t_pile *a, t_pile *b, int pivot)
 	{
 		if (a->pile[a->len - 1] >= avg)
 		{
-			op += rotate_pile(a, 1);
+			op += rotate_pile(a, 1, res);
 			nb_rot++;
 		}
 		else
-			op += push_pile(a, b, 1);
+			op += push_pile(a, b, 1, res);
 	}
 	while (nb_rot--)
 	{
 		if (b->pile[b->len - 1] < b->pile[0] && b->len > 1)
-			op += reverse_rotate_both(a, b, 1);
+			op += reverse_rotate_both(a, b, 1, res);
 		else
-			op += reverse_rotate_pile(a, 1);
+			op += reverse_rotate_pile(a, 1, res);
 	}
 	if (b->len != 0)
-		op += push_to_merge(a, b);
-	op += quicksort(a, b, pivot);
+		op += push_to_merge(a, b, res);
+	op += quicksort(a, b, pivot, res);
 	return (op);
 }
 
-int		push_to_merge(t_pile *a, t_pile *b)
+int		push_to_merge(t_pile *a, t_pile *b, int *res)
 {
 	int op;
 	int pivot;
@@ -67,48 +67,52 @@ int		push_to_merge(t_pile *a, t_pile *b)
 	{
 		if (b->len <= 13)
 		{
-			op += push_number_to_top(b, a, b->max);
-			op += push_pile(b, a, 1);
+			op += push_number_to_top(b, a, b->max, res);
+			op += push_pile(b, a, 1, res);
 		}
 		else if (b->pile[b->len - 1] == 1 || b->pile[b->len - 1] == (a->pile[0] + 1))
 		{
-			op += push_pile(b, a, 1);
+			op += push_pile(b, a, 1, res);
 			if (b->pile[b->len - 1] < b->avg && b->pile[b->len - 1] != (a->pile[0] + 2) && b->len > 1)
-				op += rotate_both(a, b, 1);
+				op += rotate_both(a, b, 1, res);
 			else
-				op += rotate_pile(a, 1);
+				op += rotate_pile(a, 1, res);
 		}
 		else if (b->pile[b->len - 1] >= b->avg)
-			op += push_pile(b, a, 1);
+			op += push_pile(b, a, 1, res);
 		else
-			op += rotate_pile(b, 1);
+			op += rotate_pile(b, 1, res);
 		length--;
 	}
 	while (!sorted(a) && (a->pile[a->len - 1] == 1 || a->pile[a->len - 1] == (a->pile[0] + 1)))
 	{
 		if (b->pile[b->len - 1] < b->pile[0] && b->len > 1)
-			op += rotate_both(a, b, 1);
+			op += rotate_both(a, b, 1, res);
 		else
-			op += rotate_pile(a, 1);
+			op += rotate_pile(a, 1, res);
 	}
-	op += push_to_merge(a, b);
-	op += quicksort_split(a, b, pivot);
+	op += push_to_merge(a, b, res);
+	op += quicksort_split(a, b, pivot, res);
 	return (op);
 }
 
-void	sort_algo2(t_pile *a, t_pile *b)
+void	sort_algo(t_pile *a, t_pile *b, int fd)
 {
+	int *res;
 	int pivot;
-	int op;
 
-	op = 0;
+	res = (int *)malloc(sizeof(int) * 1000);
+	res[0] = 0;
 	a->len = get_pile_length(a->pile);
 	b->len = get_pile_length(b->pile);
 	find_max(a);
 	pivot = a->len / 2;
 	if (a->len % 2 != 0)
 		pivot++;
-	op += split_a(a, b, pivot);
-	op += push_to_merge(a, b);
-	op += quicksort_split(a, b, a->max);
+	split_a(a, b, pivot, res);
+	push_to_merge(a, b, res);
+	quicksort_split(a, b, a->max, res);
+	// print_result(res, fd);
+	reduce_result(res);
+	convert_result(res, fd);
 }

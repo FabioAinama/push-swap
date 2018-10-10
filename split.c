@@ -12,7 +12,7 @@
 
 #include "push-swap.h"
 
-int		split_a(t_pile *a, t_pile *b, int pivot)
+int		split_a(t_pile *a, t_pile *b, int pivot, int *res)
 {
 	int half;
 	int op;
@@ -24,12 +24,12 @@ int		split_a(t_pile *a, t_pile *b, int pivot)
 		if (a->pile[a->len - 1] > pivot)
 		{
 			if (b->pile[b->len - 1] < (pivot / 2) && b->len > 1)
-				op += rotate_both(a, b, 1);
+				op += rotate_both(a, b, 1, res);
 			else
-				op += rotate_pile(a, 1);
+				op += rotate_pile(a, 1, res);
 		}
 		else
-			op += push_pile(a, b, 1);
+			op += push_pile(a, b, 1, res);
 	}
 	return (op);
 }

@@ -12,8 +12,8 @@
 
 all :
 	@echo "Compilation..."
-	@gcc checker.c ps_parser.c rotate.c swap-push.c helper.c utils.c libft/libft.a -o checker
-	@gcc push-swap.c sort_algo.c transform-numbers.c helper.c utils.c rotate.c split.c ps_parser.c swap-push.c libft/libft.a
+	@gcc checker.c ps_parser.c rotate.c swap-push.c helper.c utils.c ps_result.c libft/libft.a -o checker
+	@gcc push-swap.c sort_algo.c transform-numbers.c helper.c utils.c rotate.c split.c ps_parser.c swap-push.c ps_result.c libft/libft.a
 	@mv a.out push-swap
 	@echo "Compilation terminée..."	
 
