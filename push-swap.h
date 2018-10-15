@@ -18,6 +18,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <limits.h>
 
 typedef struct	s_pile
 {
@@ -30,10 +31,10 @@ typedef struct	s_pile
 }				t_pile;
 
 int		get_pile_length(int *pile);
-void	order_numbers(t_pile *a, t_pile *cpy);
-void	last_check(t_pile *p);
-void	fill_piles(t_pile *a, t_pile *c, int argc, char **argv);
-void	fill_pile(t_pile *a, int argc, char **argv);
+int		order_numbers(t_pile *a, t_pile *cpy);
+void	last_check(t_pile *a, t_pile *b);
+int		fill_piles(t_pile *a, t_pile *c, int argc, char **argv);
+int		fill_pile(t_pile *a, int argc, char **argv);
 void	sort_algo(t_pile *a, t_pile *b, int fd);
 int 	push_pile(t_pile *src, t_pile *dst, int print, int *res);
 int		swap_pile(t_pile *p, int print, int *res);
@@ -62,5 +63,8 @@ void	print_pile(t_pile *p);
 void	print_piles(t_pile *a, t_pile *b);
 void	reduce_result(int *res);
 void	convert_result(int *res, int fd);
+
+void	simple_sort(t_pile *a, t_pile *b, int fd);
+void	exit_all(t_pile *a, t_pile *b);
 
 #endif

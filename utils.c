@@ -95,7 +95,8 @@ void	print_piles(t_pile *a, t_pile *b)
 	i = b->len - 1;
 	while (i >= 0)
 	{
-		printf("Pile B: %10d\n", b->pile[i]);
+		if (b->pile[i] != 0)
+			printf("Pile B: %10d\n", b->pile[i]);
 		i--;
 	}
 	// printf("Pile B (Last): %10d\n", b->pile[b->len]);

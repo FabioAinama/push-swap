@@ -48,19 +48,19 @@ void	reduce_result(int *res)
 	j = 0;
 	while (res[i + 1] != 0)
 	{
-		if ((res[i] | res[i + 1]) == 15)
+		if ((res[i] ^ res[i + 1]) == 15 || (res[i] == 1 && res[i + 1] == 1)
+			|| (res[i] == 2 && res[i + 1] == 2) || (res[i] == 4 && res[i + 1] == 4))
 		{
 			j = i;
-			// printf("We can do better, so we will!\n");
-			// printf("Va de res[i]: %d - res[i + 1]: %d\n", res[i], res[i + 1]);
 			while (res[j + 2] != 0)
 			{
 				res[j] = res[j + 2];
-				j++;
+				res[j + 1] = res[j + 3];
+				j += 2;
 			}
-			i--;
-			// res[j + 2] = 0;
-			// res[j + 1] = 0;
+			res[j] = 0;
+			res[j + 1] = 0;
+			i -= 2;
 		}
 		i++;
 	}
@@ -70,8 +70,8 @@ void	convert_result(int *res, int fd)
 {
 	int i;
 
-	i = 0;
-	while (res[i] != 0)
+	i = -1;
+	while (res[++i] != 0)
 	{
 		if (res[i] == 12)
 			ft_putendl_fd("pa", fd);
@@ -96,7 +96,6 @@ void	convert_result(int *res, int fd)
 		else if (res[i] == 7)
 			ft_putendl_fd("rrr", fd);
 		else
-			return;
-		i++;
+			ft_putendl_fd("WHAT?!!!!!!!!!!", fd); // Eror need to be throwned
 	}
 }

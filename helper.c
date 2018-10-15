@@ -56,13 +56,9 @@ int			closer_to_which(t_pile *p, int nb)
 
 int			push_number_to_top(t_pile *b, t_pile *a, int nb, int *res)
 {
-	// int i;
 	int op;
 
-	// i = 0;
 	op = 0;
-	// while (i < b->len && b->pile[i] != nb)
-	// 	i++;
 	if (closer_to_which(b, nb))
 	{
 		while (b->pile[b->len - 1] != nb)

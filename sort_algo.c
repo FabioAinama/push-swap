@@ -102,9 +102,7 @@ void	sort_algo(t_pile *a, t_pile *b, int fd)
 	int pivot;
 
 	res = (int *)malloc(sizeof(int) * 1000);
-	res[0] = 0;
-	a->len = get_pile_length(a->pile);
-	b->len = get_pile_length(b->pile);
+	ft_memset(res, 0, 1000);
 	find_max(a);
 	pivot = a->len / 2;
 	if (a->len % 2 != 0)
@@ -115,4 +113,5 @@ void	sort_algo(t_pile *a, t_pile *b, int fd)
 	// print_result(res, fd);
 	reduce_result(res);
 	convert_result(res, fd);
+	// print_piles(a, b);
 }

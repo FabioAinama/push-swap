@@ -12,7 +12,7 @@
 
 #include "push-swap.h"
 
-void	transform_numbers(t_pile *a, t_pile *cpy)
+static	void	transform_numbers(t_pile *a, t_pile *cpy)
 {
 	int nb;
 	int i;
@@ -30,29 +30,54 @@ void	transform_numbers(t_pile *a, t_pile *cpy)
 	}
 }
 
-void	order_numbers(t_pile *a, t_pile *cpy) // A modifier en quicksort!!!!!!!!!
+static	int		quicksort_order(int *tab, int start, int end)
 {
-	int length;
+	int pivot;
+	int tmp;
 	int i;
 	int j;
-	int tmp;
 
-	cpy->len = a->len;
-	j = 0;
-	while (j < a->len - 1)
+	pivot = tab[end];
+	i = start - 1;
+	j = start - 1;
+	while (++j <= end - 1)
 	{
-		i = 0;
-		while (i < a->len - 1 - j)
+		if (tab[j] == pivot)
+			return (-1);
+		if (tab[j] <= pivot)
 		{
-			if (cpy->pile[i] > cpy->pile[i + 1])
-			{
-				tmp = cpy->pile[i + 1];
-				cpy->pile[i + 1] = cpy->pile[i];
-				cpy->pile[i] = tmp;
-			}
 			i++;
+			tmp = tab[i];
+			tab[i] = tab[j];
+			tab[j] = tmp;
 		}
-		j++;
 	}
+	tmp = tab[i + 1];
+	tab[i + 1] = tab[end];
+	tab[end] = tmp;
+	return (i + 1);
+}
+
+static	int		quicksort_tab(int *tab, int start, int end)
+{
+	int pivot;
+	int ret;
+
+	ret = 0;
+	if (start < end)
+	{
+		if ((pivot = quicksort_order(tab, start, end)) == -1)
+			return (-1);
+		ret = quicksort_tab(tab, pivot + 1, end);
+		ret = quicksort_tab(tab, start, pivot - 1);
+	}
+	return (ret);
+}
+
+int			order_numbers(t_pile *a, t_pile *cpy)
+{
+	if (quicksort_tab(cpy->pile, 0, cpy->len - 1) == -1)
+		return (-1);
 	transform_numbers(a, cpy);
+	return (0);
 }

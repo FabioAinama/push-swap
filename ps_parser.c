@@ -12,7 +12,7 @@
 
 #include "push-swap.h"
 
-t_pile	*init_pile(int c, int length)
+t_pile		*init_pile(int c, int length)
 {
 	t_pile *p;
 
@@ -27,7 +27,7 @@ t_pile	*init_pile(int c, int length)
 	return (p);
 }
 
-int		get_length_args(int argc, char **argv)
+int			get_length_args(int argc, char **argv)
 {
 	int i;
 	int j;
@@ -53,51 +53,74 @@ int		get_length_args(int argc, char **argv)
 	return (k);
 }
 
-void	fill_piles(t_pile *a, t_pile *c, int argc, char **argv)
+static	int		check_only_digits(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (ft_isdigit(str[i]) == 0 && str[i] != '-')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+// A modifier pour passer directement le bon argc et argv
+int			fill_piles(t_pile *a, t_pile *c, int argc, char **argv)
 {
 	int i;
 	int j;
 	int k;
 	char **tab;
+	long ln;
 
-	i = 0;
+	i = -1;
 	k = argc - 2;
-	while (i < argc - 1)
+	while (++i < argc - 1)
 	{
-		j = 0;
-		tab = NULL;
+		j = -1;
 		tab = ft_strsplit(argv[i + 1], ' ');
-		while (tab[j])
+		while (tab[++j])
 		{
-			a->pile[k] = ft_atoi(tab[j]); // exit si nb est superieur a l'int max
+			ln = ft_atol(tab[j]);
+			if (ln > INT_MAX || check_only_digits(tab[j]) == 0)
+				return (-1);
+			a->pile[k] = ln;
 			c->pile[k] = a->pile[k];
 			ft_strdel(&tab[j]);
 			k--;
-			j++;
 		}
 		free(tab);
-		i++;
 	}
+	return (0);
 }
 
-void	fill_pile(t_pile *a, int argc, char **argv)
+int			fill_pile(t_pile *a, int argc, char **argv)
 {
 	int i;
 	int j;
 	int k;
 	char **tab;
+	long ln;
 
 	i = 0;
-	k = argc - 2;
+	k = argc - 1;
 	a->pile[k + 1] = 0;
-	while (i < argc - 1)
+	while (i < argc)
 	{
 		j = 0;
 		tab = NULL;
-		tab = ft_strsplit(argv[i + 1], ' ');
+		tab = ft_strsplit(argv[i], ' ');
 		while (tab[j])
 		{
-			a->pile[k] = ft_atoi(tab[j]);
+			// printf("tab[%d]: %s", j, tab[j]);
+			ln = ft_atol(tab[j]);
+			// printf("ln: %ld", ln);
+			if (ln > INT_MAX || check_only_digits(tab[j]) == 0)
+				return (-1);
+			a->pile[k] = ln;
 			ft_strdel(&tab[j]);
 			k--;
 			j++;
@@ -105,4 +128,5 @@ void	fill_pile(t_pile *a, int argc, char **argv)
 		free(tab);
 		i++;
 	}
+	return (0);
 }

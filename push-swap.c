@@ -12,6 +12,7 @@
 
 #include "push-swap.h"
 
+// A modifier pour passer directement le bon argc et argv
 int		main(int argc, char **argv)
 {
 	int fd;
@@ -23,32 +24,40 @@ int		main(int argc, char **argv)
 
 	if (ft_strcmp(argv[1], "-f") == 0)
 	{
-		printf("-f Flag present\n");
-		fd = open(argv[2], O_WRONLY);
-		// while (get_next_line(fd, &line) > 0)
-		// {
-		// 	ft_putendl(line);
-		// }
+		fd = open(argv[2], O_CREAT|O_WRONLY, S_IRWXO);
 		argv += 2;
 		argc -= 2;
 	}
 	else
-	{
 		fd = 1;
-	}
 	length = get_length_args(argc - 1, argv + 1);
-	a = init_pile(97, length);
-	b = init_pile(98, length);
-	c = init_pile(99, length);
-	fill_piles(a, c, argc, argv);
-	while (length--)
-		b->pile[length] = 0;
-	b->pile[0] = 0;
-	// Je dois check si tout est order, je retourne rien, et que je ne lance que si j'ai plus d'un arg
-	if (argc > 1)
+	a = init_pile('a', length);
+	b = init_pile('b', length);
+	c = init_pile('c', length);
+	if (fill_piles(a, c, argc, argv) == -1)
 	{
-		order_numbers(a, c);
-		sort_algo(a, b, fd);
+		free(c->pile);
+		free(c);
+		exit_all(a, b);
 	}
+	a->len = length;
+	b->len = 0;
+	c->len = a->len;
+	ft_memset(b->pile, 0, length);
+	if (argc > 2)
+	{
+		if (order_numbers(a, c) == -1)
+		{
+			free(c->pile);
+			free(c);
+			exit_all(a, b);
+		}
+		if (length <= 10)
+			simple_sort(a, b, fd);
+		else
+			sort_algo(a, b, fd);
+	}
+	// print_piles(a, b);
+	close(fd);
 	return (0);
 }
