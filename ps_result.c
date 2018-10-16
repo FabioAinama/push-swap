@@ -23,22 +23,6 @@ void	push_into_res(int *res, int value)
 	res[i + 1] = 0;
 }
 
-void	print_result(int *res, int fd)
-{
-	int i;
-	(void)fd;
-
-	i = 0;
-	while (res[i] != 0)
-	{
-		ft_putnbr(res[i]);
-		ft_putstr("\n");
-		// ft_putnbr_fd(res[i], fd);
-		// ft_putstr("\n", fd);
-		i++;
-	}
-}
-
 void	reduce_result(int *res)
 {
 	int i;
@@ -96,6 +80,6 @@ void	convert_result(int *res, int fd)
 		else if (res[i] == 7)
 			ft_putendl_fd("rrr", fd);
 		else
-			ft_putendl_fd("WHAT?!!!!!!!!!!", fd); // Eror need to be throwned
+			ft_putendl_fd("Error", 2);
 	}
 }

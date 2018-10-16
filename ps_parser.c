@@ -70,11 +70,11 @@ static	int		check_only_digits(char *str)
 // A modifier pour passer directement le bon argc et argv
 int			fill_piles(t_pile *a, t_pile *c, int argc, char **argv)
 {
-	int i;
-	int j;
-	int k;
-	char **tab;
-	long ln;
+	int		i;
+	int		j;
+	int		k;
+	char	**tab;
+	long	ln;
 
 	i = -1;
 	k = argc - 2;
@@ -105,28 +105,24 @@ int			fill_pile(t_pile *a, int argc, char **argv)
 	char **tab;
 	long ln;
 
-	i = 0;
+	i = -1;
 	k = argc - 1;
 	a->pile[k + 1] = 0;
-	while (i < argc)
+	while (++i < argc)
 	{
-		j = 0;
+		j = -1;
 		tab = NULL;
 		tab = ft_strsplit(argv[i], ' ');
-		while (tab[j])
+		while (tab[++j])
 		{
-			// printf("tab[%d]: %s", j, tab[j]);
 			ln = ft_atol(tab[j]);
-			// printf("ln: %ld", ln);
 			if (ln > INT_MAX || check_only_digits(tab[j]) == 0)
 				return (-1);
 			a->pile[k] = ln;
 			ft_strdel(&tab[j]);
 			k--;
-			j++;
 		}
 		free(tab);
-		i++;
 	}
 	return (0);
 }

@@ -12,11 +12,12 @@
 
 #include "push-swap.h"
 
+// void	init_all_piles(t_pile *a, t_pile *b, t_pile *c)
+
 // A modifier pour passer directement le bon argc et argv
 int		main(int argc, char **argv)
 {
 	int fd;
-	char *line;
 	int length;
 	t_pile *a;
 	t_pile *b;
@@ -36,13 +37,10 @@ int		main(int argc, char **argv)
 	c = init_pile('c', length);
 	if (fill_piles(a, c, argc, argv) == -1)
 	{
-		free(c->pile);
-		free(c);
+		free_pile(c);
 		exit_all(a, b);
 	}
-	a->len = length;
 	b->len = 0;
-	c->len = a->len;
 	ft_memset(b->pile, 0, length);
 	if (argc > 2)
 	{
@@ -57,7 +55,7 @@ int		main(int argc, char **argv)
 		else
 			sort_algo(a, b, fd);
 	}
-	// print_piles(a, b);
-	close(fd);
+	if (fd > 2)
+		close(fd);
 	return (0);
 }

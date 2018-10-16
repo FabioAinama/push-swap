@@ -29,7 +29,7 @@ function startDraw()
 
 function preload() {
 	pileA = loadStrings('./numbers.txt');
-	nonOp = loadStrings('./instructions.txt');
+	nonOp = loadStrings('./inst.txt');
 }
 
 function manipulateArrays(instruction)

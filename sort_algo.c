@@ -110,8 +110,6 @@ void	sort_algo(t_pile *a, t_pile *b, int fd)
 	split_a(a, b, pivot, res);
 	push_to_merge(a, b, res);
 	quicksort_split(a, b, a->max, res);
-	// print_result(res, fd);
 	reduce_result(res);
 	convert_result(res, fd);
-	// print_piles(a, b);
 }

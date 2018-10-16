@@ -79,39 +79,3 @@ int		get_pile_length(int *pile)
 		i++;
 	return (i);
 }
-
-
-void	print_piles(t_pile *a, t_pile *b)
-{
-	int i;
-
-	i = a->len - 1;
-	while (i >= 0)
-	{
-		printf("Pile A: %-10d\n", a->pile[i]);
-		i--;
-	}
-	// printf("Pile A (Last): %-10d\n", a->pile[a->len]);
-	i = b->len - 1;
-	while (i >= 0)
-	{
-		if (b->pile[i] != 0)
-			printf("Pile B: %10d\n", b->pile[i]);
-		i--;
-	}
-	// printf("Pile B (Last): %10d\n", b->pile[b->len]);
-	printf("----------------------------------------\n");	
-}
-
-void	print_pile(t_pile *p)
-{
-	int i;
-
-	i = p->len - 1;
-	while (i >= 0)
-	{
-		printf("Pile %c: %10d\n", p->letter, p->pile[i]);
-		i--;
-	}
-	printf("----------------------------------------\n");	
-}

@@ -12,26 +12,6 @@
 
 #include "push-swap.h"
 
-void	last_check(t_pile *a, t_pile *b)
-{
-	int i;
-
-	i = 0;
-	while (a->pile[i] != 0)
-	{
-		if (a->pile[i] < a->pile[i + 1])
-		{
-			ft_putendl_fd("KO", 2);
-			break;
-		}
-		i++;
-	}
-	if (a->pile[i] == 0 && b->pile[0] == 0 && a->len != 0)
-		ft_putendl("OK");
-	else
-		ft_putendl_fd("KO", 2);
-}
-
 int		ps_dispatcher(t_pile *a, t_pile *b, char *inst, int *res)
 {
 	if (ft_strcmp(inst, "ra") == 0)
@@ -61,7 +41,7 @@ int		ps_dispatcher(t_pile *a, t_pile *b, char *inst, int *res)
 	return (1);
 }
 
-void	print_pile_fd(t_pile* a, int fd)
+void	print_pile_fd(t_pile *a, int fd)
 {
 	int		i;
 	char	*nb;
@@ -76,66 +56,79 @@ void	print_pile_fd(t_pile* a, int fd)
 	}
 }
 
-int		main(int argc, char **argv)
+void	checker_reader(t_pile *a, t_pile *b, t_fd *fd)
 {
+	char	*line;
+	int		*res;
+
+	if ((res = (int *)malloc(sizeof(int) * 1000)) == 0)
+		exit_all(a, b);
+	ft_memset(res, 0, 1000);
+	while (get_next_line(fd->read_fd, &line) > 0)
+	{
+		if (fd->inst_fd != -1)
+			ft_putendl_fd(line, fd->inst_fd);
+		if (ps_dispatcher(a, b, line, res) == 0)
+		{
+			free(fd);
+			free(res);
+			ft_strdel(&line);
+			exit_all(a, b);
+		}
+		ft_strdel(&line);
+	}
+	free(res);
+}
+
+void	checker(int argc, char **argv, t_fd *fd)
+{
+	int		length;
 	t_pile	*a;
 	t_pile	*b;
-	int		length;
-	int		vis_fd;
-	int		inst_fd;
-	int		read_fd;
-	int		*res;
-	char	*line;
 
-	vis_fd = -1;
-	inst_fd = -1;
-	if (argc == 1)
-		return (0);
-	argv++;
-	argc--;
-	if (ft_strcmp(argv[0], "-f") == 0)
-	{
-		if ((read_fd = open(argv[1], O_RDONLY)) == -1)
-		{
-			// Pas pu ouvrir le fd, surement quil ny a pas de fichier ou ecrire
-			return (0);
-		}
-		argv += 2;
-		argc -= 2;
-	}
-	else
-		read_fd = 0;
-	if (ft_strcmp(argv[0], "-v") == 0)
-	{
-		vis_fd = open("visualizer/numbers.txt", O_CREAT|O_TRUNC|O_RDWR, S_IRWXO);
-		inst_fd = open("visualizer/instructions.txt", O_CREAT|O_TRUNC|O_RDWR, S_IRWXO);
-		argv++;
-		argc--;
-	}
-	res = (int *)malloc(sizeof(int) * 1000);
-	ft_memset(res, 0, 1000);
 	length = get_length_args(argc, argv);
 	a = init_pile(97, length);
 	b = init_pile(98, length);
 	if (fill_pile(a, argc, argv) == -1)
+	{
+		free(fd);
 		exit_all(a, b);
-	if (vis_fd != -1)
-		print_pile_fd(a, vis_fd);
-	b->pile[0] = 0;
+	}
+	if (fd->vis_fd != -1)
+		print_pile_fd(a, fd->vis_fd);
+	ft_memset(b->pile, 0, length);
 	a->len = get_pile_length(a->pile);
 	b->len = 0;
-	while (get_next_line(read_fd, &line) > 0)
+	checker_reader(a, b, fd);
+	if (fd->vis_fd != -1 && fd->inst_fd != -1)
 	{
-		if (inst_fd != -1)
-			ft_putendl_fd(line, inst_fd);
-		if (ps_dispatcher(a, b, line, res) == 0)
-		{
-			// printf("I'm going to exit\n");
-			exit_all(a, b);
-		}
-		// ft_strdel(&line);
+		system("open -a \"Google Chrome\" \"http://localhost:8080/vis\"");
+		system("ruby -run -e httpd . -p 8080");
 	}
-	// free(line);
-	last_check(a, b);
+	last_check_free(a, b);
+	free(fd);
+}
+
+// Je dois close mes FD!!!!!!!!
+int		main(int argc, char **argv)
+{
+	t_fd	*fd;
+
+	fd = init_fd_readers(fd);
+	if (--argc == 0)
+		return (0);
+	argv++;
+	if (ft_strcmp(argv[0], "-f") == 0)
+	{
+		if ((argc = open_inst(argc, argv, fd)) == -1)
+			return (0);
+		argv += 2;
+	}
+	if (ft_strcmp(argv[0], "-v") == 0)
+	{
+		argc -= create_vis_files(fd);
+		argv++;
+	}
+	checker(argc, argv, fd);
 	return (0);
 }

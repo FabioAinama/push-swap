@@ -12,26 +12,6 @@
 
 #include "push-swap.h"
 
-// static int		rev_sorted_until(t_pile *p)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (p->pile[i] > p->pile[i + 1] && i < p->len)
-// 		i++;
-// 	return (i);
-// }
-
-// static int		sorted_until(t_pile *p)
-// {
-// 	int i;
-
-// 	i = p->len - 1;
-// 	while (p->pile[i] < p->pile[i - 1])
-// 		i--;
-// 	return (i);
-// }
-
 static	void	empty_b(t_pile *a, t_pile *b, int *res)
 {
 	while (b->len > 0)
@@ -77,7 +57,6 @@ void			simple_sort(t_pile *a, t_pile *b, int fd)
 	res = (int *)malloc(sizeof(int) * 100);
 	ft_memset(res, 0, 100);
 	max = find_max(a);
-	// print_piles(a, b);
 	while (a->len > 3)
 	{
 		if (a->pile[a->len - 1] < max - 2)
@@ -93,5 +72,4 @@ void			simple_sort(t_pile *a, t_pile *b, int fd)
 	empty_b(a, b, res);
 	reduce_result(res);
 	convert_result(res, fd);
-	// print_piles(a, b);
 }

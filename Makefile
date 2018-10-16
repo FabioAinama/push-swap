@@ -12,7 +12,7 @@
 
 all :
 	@echo "Compilation..."
-	@gcc checker.c ps_parser.c rotate.c swap_push.c helper.c utils.c ps_result.c error.c libft/libft.a -o checker
+	@gcc checker.c ps_parser.c rotate.c swap_push.c helper.c utils.c ps_result.c error.c fd_dealer.c libft/libft.a -o checker
 	@gcc push-swap.c sort_algo.c transform-numbers.c helper.c utils.c rotate.c split.c ps_parser.c swap_push.c ps_result.c simple-sort.c error.c libft/libft.a
 	@mv a.out push-swap
 	@echo "Compilation terminée..."	
@@ -43,6 +43,10 @@ full100 :
 
 vis100 :
 	ARG=`ruby -e "puts (1..100).to_a.shuffle.join(' ')"`; ./push-swap $$ARG | ./checker -v $$ARG
+
+
+vis500 :
+	ARG=`ruby -e "puts (-250..250).to_a.shuffle.join(' ')"`; ./push-swap $$ARG | ./checker -v $$ARG
 
 trandom100 :
 	./push-swap -f res.txt `ruby -e "puts (-50..49).to_a.shuffle.join(' ')"`
