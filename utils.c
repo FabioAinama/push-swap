@@ -45,7 +45,7 @@ void	get_average(t_pile *p)
 }
 
 /*
-** It's possible to change the value of the return (-1, -2...) to optimize the number of operations
+**	It's possible to change the value of the return (-1, -2...) to optimize the number of operations
 */
 
 int		get_average_pivot(t_pile *p, int pivot)
@@ -78,4 +78,26 @@ int		get_pile_length(int *pile)
 	while (pile[i] != 0)
 		i++;
 	return (i);
+}
+
+void	print_piles(t_pile *a, t_pile *b)
+{
+	int i;
+
+	i = a->len - 1;
+	while (i >= 0)
+	{
+		printf("Pile A: %-10d\n", a->pile[i]);
+		i--;
+	}
+	// printf("Pile A (Last): %-10d\n", a->pile[a->len]);
+	i = b->len - 1;
+	while (i >= 0)
+	{
+		if (b->pile[i] != 0)
+			printf("Pile B: %10d\n", b->pile[i]);
+		i--;
+	}
+	// printf("Pile B (Last): %10d\n", b->pile[b->len]);
+	printf("----------------------------------------\n");	
 }

@@ -14,8 +14,7 @@
 
 int		push_pile(t_pile *src, t_pile *dst, int print, int *res)
 {
-	(void)res;
-	if (src->pile[0] == 0)
+	if (src->len == 0)
 		return (0);
 	dst->pile[dst->len] = src->pile[src->len - 1];
 	dst->len++;

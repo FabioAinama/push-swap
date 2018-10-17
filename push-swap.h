@@ -13,6 +13,7 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 # include <stdlib.h>
+# include <stdio.h>
 # include "libft/libft.h"
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -21,7 +22,7 @@
 
 typedef struct	s_pile
 {
-	char	letter;
+	int		letter;
 	int		*pile;
 	int		min;
 	int		max;
@@ -37,6 +38,7 @@ typedef struct	s_fd
 }				t_fd;
 
 int		create_vis_files(t_fd *fd);
+void	close_fd(int fd);
 void	convert_result(int *res, int fd);
 void	exit_all(t_pile *a, t_pile *b);
 int		fill_piles(t_pile *a, t_pile *c, int argc, char **argv);
@@ -46,6 +48,7 @@ int		find_max(t_pile *p);
 void	find_last_sorted_rev(t_pile *p);
 void	find_last_sorted(t_pile *p);
 void	free_pile(t_pile *p);
+void	free_both_piles(t_pile *a, t_pile *b);
 int		get_pile_length(int *pile);
 void	get_average(t_pile *p);
 int		get_average_pivot(t_pile *p, int pivot);
@@ -66,9 +69,11 @@ int 	reverse_rotate_pile(t_pile *p, int print, int *res);
 int		reverse_rotate_both(t_pile *a, t_pile *b, int print, int *res);
 int		swap_pile(t_pile *p, int print, int *res);
 int 	swap_both(t_pile *a, t_pile *b, int print, int *res);
-int		split_a(t_pile *a, t_pile *b, int pivot, int *res);
+void	split_a(t_pile *a, t_pile *b, int pivot, int *res);
 void	simple_sort(t_pile *a, t_pile *b, int fd);
 void	sort_algo(t_pile *a, t_pile *b, int fd);
 int		sorted(t_pile *p);
+
+void	print_piles(t_pile *a, t_pile *b);
 
 #endif

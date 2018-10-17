@@ -9,7 +9,7 @@
 /*   Updated: 2018/09/28 01:24:55 by fginja-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+// Non ok
 #include "push-swap.h"
 
 int		ps_dispatcher(t_pile *a, t_pile *b, char *inst, int *res)
@@ -61,11 +61,12 @@ void	checker_reader(t_pile *a, t_pile *b, t_fd *fd)
 	char	*line;
 	int		*res;
 
-	if ((res = (int *)malloc(sizeof(int) * 1000)) == 0)
+	if ((res = (int *)malloc(sizeof(int) * 10000)) == 0)
 		exit_all(a, b);
-	ft_memset(res, 0, 1000);
+	// ft_memset(res, 0, 10000); // Cetait pas comment avant
 	while (get_next_line(fd->read_fd, &line) > 0)
 	{
+		// ft_putendl(line);
 		if (fd->inst_fd != -1)
 			ft_putendl_fd(line, fd->inst_fd);
 		if (ps_dispatcher(a, b, line, res) == 0)
@@ -80,6 +81,8 @@ void	checker_reader(t_pile *a, t_pile *b, t_fd *fd)
 	free(res);
 }
 
+// Je dois proteger mes init piles...
+// Fill pile fais peut-etre de la merde
 void	checker(int argc, char **argv, t_fd *fd)
 {
 	int		length;
@@ -87,18 +90,21 @@ void	checker(int argc, char **argv, t_fd *fd)
 	t_pile	*b;
 
 	length = get_length_args(argc, argv);
+	// printf("Checker length: %d\n", length);
 	a = init_pile(97, length);
 	b = init_pile(98, length);
+	b->len = 0;
+	// printf("Longeur de ma pile A: %d\n", a->len);
 	if (fill_pile(a, argc, argv) == -1)
 	{
 		free(fd);
 		exit_all(a, b);
 	}
+	// print_piles(a, b);
+	// printf("Pile A %d: %d\n", a->len, a->pile[a->len]);
 	if (fd->vis_fd != -1)
 		print_pile_fd(a, fd->vis_fd);
-	ft_memset(b->pile, 0, length);
-	a->len = get_pile_length(a->pile);
-	b->len = 0;
+	// a->len = get_pile_length(a->pile);
 	checker_reader(a, b, fd);
 	if (fd->vis_fd != -1 && fd->inst_fd != -1)
 	{
@@ -115,9 +121,10 @@ int		main(int argc, char **argv)
 	t_fd	*fd;
 
 	fd = init_fd_readers(fd);
-	if (--argc == 0)
+	if (argc == 1)
 		return (0);
 	argv++;
+	argc--;
 	if (ft_strcmp(argv[0], "-f") == 0)
 	{
 		if ((argc = open_inst(argc, argv, fd)) == -1)

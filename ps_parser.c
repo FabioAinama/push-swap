@@ -9,7 +9,7 @@
 /*   Updated: 2018/10/06 11:44:06 by fginja-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+// Non ok
 #include "push-swap.h"
 
 t_pile		*init_pile(int c, int length)
@@ -24,6 +24,7 @@ t_pile		*init_pile(int c, int length)
 	p->max = 0;
 	p->len = length;
 	p->letter = c;
+	ft_memset(p->pile, 0, ((length + 1) * sizeof(int)));
 	return (p);
 }
 
@@ -67,7 +68,8 @@ static	int		check_only_digits(char *str)
 	return (1);
 }
 
-// A modifier pour passer directement le bon argc et argv
+// fuite memoire si je retourne -1 (tab non free...)
+// tab non protege
 int			fill_piles(t_pile *a, t_pile *c, int argc, char **argv)
 {
 	int		i;
@@ -77,11 +79,11 @@ int			fill_piles(t_pile *a, t_pile *c, int argc, char **argv)
 	long	ln;
 
 	i = -1;
-	k = argc - 2;
-	while (++i < argc - 1)
+	k = a->len - 1;
+	while (++i < argc)
 	{
 		j = -1;
-		tab = ft_strsplit(argv[i + 1], ' ');
+		tab = ft_strsplit(argv[i], ' ');
 		while (tab[++j])
 		{
 			ln = ft_atol(tab[j]);
@@ -89,7 +91,7 @@ int			fill_piles(t_pile *a, t_pile *c, int argc, char **argv)
 				return (-1);
 			a->pile[k] = ln;
 			c->pile[k] = a->pile[k];
-			ft_strdel(&tab[j]);
+			// ft_strdel(&tab[j]);
 			k--;
 		}
 		free(tab);
@@ -99,19 +101,17 @@ int			fill_piles(t_pile *a, t_pile *c, int argc, char **argv)
 
 int			fill_pile(t_pile *a, int argc, char **argv)
 {
-	int i;
-	int j;
-	int k;
-	char **tab;
-	long ln;
+	int		i;
+	int		j;
+	int		k;
+	char	**tab;
+	long	ln;
 
 	i = -1;
-	k = argc - 1;
-	a->pile[k + 1] = 0;
+	k = a->len - 1;
 	while (++i < argc)
 	{
 		j = -1;
-		tab = NULL;
 		tab = ft_strsplit(argv[i], ' ');
 		while (tab[++j])
 		{
@@ -119,7 +119,7 @@ int			fill_pile(t_pile *a, int argc, char **argv)
 			if (ln > INT_MAX || check_only_digits(tab[j]) == 0)
 				return (-1);
 			a->pile[k] = ln;
-			ft_strdel(&tab[j]);
+			// ft_strdel(&tab[j]);
 			k--;
 		}
 		free(tab);

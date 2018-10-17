@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simple-sort.c                                      :+:      :+:    :+:   */
+/*   simple_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fginja-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -49,12 +49,20 @@ static	void	order_a(t_pile *a, int *res)
 	}
 }
 
+/*
+**	Sorting algorithm for 10 or less numbers
+*/
+
 void			simple_sort(t_pile *a, t_pile *b, int fd)
 {
 	int *res;
 	int max;
 
-	res = (int *)malloc(sizeof(int) * 100);
+	if (!(res = (int *)malloc(sizeof(int) * 1000)))
+	{
+		close_fd(fd);
+		exit_all(a, b);
+	}
 	ft_memset(res, 0, 100);
 	max = find_max(a);
 	while (a->len > 3)

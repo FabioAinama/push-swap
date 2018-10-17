@@ -74,6 +74,10 @@ static	int		quicksort_tab(int *tab, int start, int end)
 	return (ret);
 }
 
+/*
+**	Sort then will transform 6 8 5 20 into 2 3 1 4 (transform into successive numbers)
+*/
+
 int			order_numbers(t_pile *a, t_pile *cpy)
 {
 	if (quicksort_tab(cpy->pile, 0, cpy->len - 1) == -1)

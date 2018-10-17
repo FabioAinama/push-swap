@@ -12,6 +12,10 @@
 
 #include "push-swap.h"
 
+/*
+**	Initialize fd needed to visualizer or to read instructions
+*/
+
 t_fd	*init_fd_readers(t_fd *fd)
 {
 	if (!(fd = (t_fd*)malloc(sizeof(t_fd))))
@@ -21,6 +25,10 @@ t_fd	*init_fd_readers(t_fd *fd)
 	fd->inst_fd = -1;
 	return (fd);
 }
+
+/*
+**	Open instructions file descriptor
+*/
 
 int		open_inst(int argc, char **argv, t_fd *fd)
 {
@@ -32,6 +40,10 @@ int		open_inst(int argc, char **argv, t_fd *fd)
 	}
 	return (argc - 2);
 }
+
+/*
+**	Open/create files needed to visualizer
+*/
 
 int		create_vis_files(t_fd *fd)
 {

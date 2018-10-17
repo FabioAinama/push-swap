@@ -9,53 +9,70 @@
 /*   Updated: 2018/09/24 19:04:40 by fginja-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+// Non ok
 #include "push-swap.h"
 
-// void	init_all_piles(t_pile *a, t_pile *b, t_pile *c)
+int		init_all_piles(t_pile **a, t_pile **b, t_pile **c, int length)
+{
+	// if (!(*a = init_pile('a', length)))
+	// 	return (0);
+	// if (!(*b = init_pile('b', length)))
+	// {
+	// 	// free_pile(*a);
+	// 	return (0);
+	// }
+	// if (!(*c = init_pile('c', length)))
+	// {
+	// 	// free_both_piles(*a, *b);
+	// 	return (0);
+	// }
+	*a = init_pile('a', length);
+	*b = init_pile('b', length);
+	*c = init_pile('c', length);
+	(*b)->len = 0;
+	// ft_memset((*b)->pile, 0, length);
+	return (1);
+}
 
-// A modifier pour passer directement le bon argc et argv
 int		main(int argc, char **argv)
 {
-	int fd;
-	int length;
-	t_pile *a;
-	t_pile *b;
-	t_pile *c;
+	int		length;
+	int		fd;
+	t_pile	*a;
+	t_pile	*b;
+	t_pile	*c;
 
+	fd = 1;
 	if (ft_strcmp(argv[1], "-f") == 0)
 	{
-		fd = open(argv[2], O_CREAT|O_WRONLY, S_IRWXO);
+		if ((fd = open(argv[2], O_CREAT|O_WRONLY, S_IRWXO)) == -1)
+			return (0);
 		argv += 2;
 		argc -= 2;
 	}
-	else
-		fd = 1;
 	length = get_length_args(argc - 1, argv + 1);
-	a = init_pile('a', length);
-	b = init_pile('b', length);
-	c = init_pile('c', length);
-	if (fill_piles(a, c, argc, argv) == -1)
+	if ((init_all_piles(&a, &b, &c, length)) == 0)
 	{
+		close_fd(fd);
+		return (0);
+	}
+	if (fill_piles(a, c, argc - 1, argv + 1) == -1)
+	{
+		close_fd(fd);
 		free_pile(c);
 		exit_all(a, b);
 	}
-	b->len = 0;
-	ft_memset(b->pile, 0, length);
-	if (argc > 2)
+	if (a->len > 1)
 	{
 		if (order_numbers(a, c) == -1)
 		{
-			free(c->pile);
-			free(c);
+			free_pile(c);
 			exit_all(a, b);
 		}
-		if (length <= 10)
+		if (a->len <= 10)
 			simple_sort(a, b, fd);
 		else
 			sort_algo(a, b, fd);
 	}
-	if (fd > 2)
-		close(fd);
 	return (0);
 }

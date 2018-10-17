@@ -12,7 +12,13 @@
 
 #include "push-swap.h"
 
-static	void	free_both_piles(t_pile *a, t_pile *b)
+void	close_fd(int fd)
+{
+	if (fd > 2)
+		close(fd);
+}
+
+void	free_both_piles(t_pile *a, t_pile *b)
 {
 	free(a->pile);
 	free(b->pile);
@@ -20,20 +26,28 @@ static	void	free_both_piles(t_pile *a, t_pile *b)
 	free(b);
 }
 
-void			free_pile(t_pile *p)
+void	free_pile(t_pile *p)
 {
-	free(p->pile);
-	free(p);
+	if (p != NULL)
+	{
+		if (p->pile != NULL)
+			free(p->pile);
+		free(p);
+	}
 }
 
-void			exit_all(t_pile *a, t_pile *b)
+void	exit_all(t_pile *a, t_pile *b)
 {
 	free_both_piles(a, b);
 	ft_putendl_fd("Error", 2);
 	exit(0);
 }
 
-void			last_check_free(t_pile *a, t_pile *b)
+/*
+**	Check if pile A is ordered and pile B empty then free
+*/
+
+void	last_check_free(t_pile *a, t_pile *b)
 {
 	int i;
 
