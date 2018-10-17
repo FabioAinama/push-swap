@@ -44,7 +44,7 @@ int			get_length_args(int argc, char **argv)
 		tab = ft_strsplit(argv[i], ' ');
 		while (tab[j])
 		{
-			// ft_strdel(&tab[j]);
+			ft_strdel(&tab[j]);
 			j++;
 			k++;
 		}
@@ -91,7 +91,7 @@ int			fill_piles(t_pile *a, t_pile *c, int argc, char **argv)
 				return (-1);
 			a->pile[k] = ln;
 			c->pile[k] = a->pile[k];
-			// ft_strdel(&tab[j]);
+			ft_strdel(&tab[j]);
 			k--;
 		}
 		free(tab);
@@ -119,7 +119,7 @@ int			fill_pile(t_pile *a, int argc, char **argv)
 			if (ln > INT_MAX || check_only_digits(tab[j]) == 0)
 				return (-1);
 			a->pile[k] = ln;
-			// ft_strdel(&tab[j]);
+			ft_strdel(&tab[j]);
 			k--;
 		}
 		free(tab);

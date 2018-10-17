@@ -23,9 +23,6 @@ all :
 trandom5 :
 	./a.out `ruby -e "puts (1..5).to_a.shuffle.join(' ')"`
 
-fail100 :
-	python3 pyviz.py `ruby -e "puts (-50..49).to_a.shuffle.join(' ')"`
-
 random100 :
 	./a.out `ruby -e "puts (-50..49).to_a.shuffle.join(' ')"`
 
@@ -52,3 +49,6 @@ random500 :
 
 debug500 :
 	ARG=`ruby -e "puts (-250..250).to_a.shuffle.join(' ')"`; ./a.out -f op.txt $$ARG | ./checker $$ARG
+
+valgrind500 :
+	ARG=`ruby -e "puts (-250..250).to_a.shuffle.join(' ')"`; valgrind --leak-check=full --log-file=valgrind.txt ./a.out $$ARG

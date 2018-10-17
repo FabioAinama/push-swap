@@ -56,23 +56,22 @@ int			closer_to_which(t_pile *p, int nb)
 
 int			push_number_to_top(t_pile *b, t_pile *a, int nb, int *res)
 {
-	int op;
-
-	op = 0;
+	if (b->len < 1)
+		return (0);
 	if (closer_to_which(b, nb))
 	{
 		while (b->pile[b->len - 1] != nb)
 		{
 			if (b->pile[b->len - 1] == a->pile[0] + 1)
 			{
-				op += push_pile(b, a, 1, res);
+				push_pile(b, a, 1, res);
 				if (closer_to_which(b, nb + 1))
-					op += rotate_both(a, b, 1, res);
+					rotate_both(a, b, 1, res);
 				else
-					op += rotate_pile(a, 1, res);
+					rotate_pile(a, 1, res);
 			}
 			else
-				op += reverse_rotate_pile(b, 1, res);
+				reverse_rotate_pile(b, 1, res);
 		}
 	}
 	else
@@ -81,15 +80,15 @@ int			push_number_to_top(t_pile *b, t_pile *a, int nb, int *res)
 		{
 			if (b->pile[b->len - 1] == a->pile[0] + 1)
 			{
-				op += push_pile(b, a, 1, res);
+				push_pile(b, a, 1, res);
 				// if (closer_to_which(b, nb + 1))
-				// 	op += rotate_both(a, b, 1);
+				// 	rotate_both(a, b, 1);
 				// else
-					op += rotate_pile(a, 1, res);
+					rotate_pile(a, 1, res);
 			}
 			else
-				op += rotate_pile(b, 1, res);
+				rotate_pile(b, 1, res);
 		}
 	}
-	return (op);
+	return (0);
 }

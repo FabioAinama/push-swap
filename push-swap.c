@@ -69,6 +69,7 @@ int		main(int argc, char **argv)
 			free_pile(c);
 			exit_all(a, b);
 		}
+		free_pile(c);
 		if (a->len <= 10)
 			simple_sort(a, b, fd);
 		else

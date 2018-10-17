@@ -84,8 +84,14 @@ int		push_to_merge(t_pile *a, t_pile *b, int *res)
 	}
 	while (!sorted(a) && (a->pile[a->len - 1] == 1 || a->pile[a->len - 1] == (a->pile[0] + 1)))
 	{
-		if (b->pile[b->len - 1] < b->pile[0] && b->len > 1)
-			rotate_both(a, b, 1, res);
+		// Ce bout de code est le meme que dans push to top, a externaliser!
+		if (b->len > 0)
+		{
+			if (b->pile[b->len - 1] < b->pile[0])
+				rotate_both(a, b, 1, res);
+			else
+				rotate_pile(a, 1, res);
+		}
 		else
 			rotate_pile(a, 1, res);
 	}
@@ -115,4 +121,6 @@ void	sort_algo(t_pile *a, t_pile *b, int fd)
 	quicksort_split(a, b, a->max, res);
 	reduce_result(res);
 	convert_result(res, fd);
+	free(res);
+	free_both_piles(a, b);
 }
