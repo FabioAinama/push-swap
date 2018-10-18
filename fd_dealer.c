@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push-swap.h"
+#include "push_swap.h"
 
 /*
 **	Initialize fd needed to visualizer or to read instructions

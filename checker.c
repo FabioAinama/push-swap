@@ -9,8 +9,8 @@
 /*   Updated: 2018/09/28 01:24:55 by fginja-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-// Non ok
-#include "push-swap.h"
+
+#include "push_swap.h"
 
 int		ps_dispatcher(t_pile *a, t_pile *b, char *inst, int *res)
 {
@@ -61,12 +61,12 @@ void	checker_reader(t_pile *a, t_pile *b, t_fd *fd)
 	char	*line;
 	int		*res;
 
+	line = NULL;
 	if ((res = (int *)malloc(sizeof(int) * 10000)) == 0)
-		exit_all(a, b);
-	// ft_memset(res, 0, 10000); // Cetait pas comment avant
+		exit_all(a, b, 1);
+	ft_memset(res, 0, 10000);
 	while (get_next_line(fd->read_fd, &line) > 0)
 	{
-		// ft_putendl(line);
 		if (fd->inst_fd != -1)
 			ft_putendl_fd(line, fd->inst_fd);
 		if (ps_dispatcher(a, b, line, res) == 0)
@@ -74,15 +74,15 @@ void	checker_reader(t_pile *a, t_pile *b, t_fd *fd)
 			free(fd);
 			free(res);
 			ft_strdel(&line);
-			exit_all(a, b);
+			exit_all(a, b, 1);
 		}
 		ft_strdel(&line);
 	}
+	if (line != NULL)
+		ft_strdel(&line);
 	free(res);
 }
 
-// Je dois proteger mes init piles...
-// Fill pile fais peut-etre de la merde
 void	checker(int argc, char **argv, t_fd *fd)
 {
 	int		length;
@@ -90,21 +90,18 @@ void	checker(int argc, char **argv, t_fd *fd)
 	t_pile	*b;
 
 	length = get_length_args(argc, argv);
-	// printf("Checker length: %d\n", length);
-	a = init_pile(97, length);
-	b = init_pile(98, length);
+	if (!(a = init_pile(97, length)))
+		return ;
+	if (!(b = init_pile(98, length)))
+		exit_all(a, b, 1);
 	b->len = 0;
-	// printf("Longeur de ma pile A: %d\n", a->len);
 	if (fill_pile(a, argc, argv) == -1)
 	{
 		free(fd);
-		exit_all(a, b);
+		exit_all(a, b, 1);
 	}
-	// print_piles(a, b);
-	// printf("Pile A %d: %d\n", a->len, a->pile[a->len]);
 	if (fd->vis_fd != -1)
 		print_pile_fd(a, fd->vis_fd);
-	// a->len = get_pile_length(a->pile);
 	checker_reader(a, b, fd);
 	if (fd->vis_fd != -1 && fd->inst_fd != -1)
 	{
@@ -112,14 +109,13 @@ void	checker(int argc, char **argv, t_fd *fd)
 		system("ruby -run -e httpd . -p 8080");
 	}
 	last_check_free(a, b);
-	free(fd);
 }
 
-// Je dois close mes FD!!!!!!!!
 int		main(int argc, char **argv)
 {
 	t_fd	*fd;
 
+	fd = NULL;
 	fd = init_fd_readers(fd);
 	if (argc == 1)
 		return (0);
@@ -137,5 +133,7 @@ int		main(int argc, char **argv)
 		argv++;
 	}
 	checker(argc, argv, fd);
+	close_all_fd(fd);
+	free(fd);
 	return (0);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push-swap.h"
+#include "push_swap.h"
 
 static	void	empty_b(t_pile *a, t_pile *b, int *res)
 {
@@ -50,7 +50,7 @@ static	void	order_a(t_pile *a, int *res)
 }
 
 /*
-**	Sorting algorithm for 10 or less numbers
+**	Sorting algorithm for 10 or less elememts
 */
 
 void			simple_sort(t_pile *a, t_pile *b, int fd)
@@ -58,26 +58,26 @@ void			simple_sort(t_pile *a, t_pile *b, int fd)
 	int *res;
 	int max;
 
-	if (!(res = (int *)malloc(sizeof(int) * 1000)))
-	{
-		close_fd(fd);
-		exit_all(a, b);
-	}
-	ft_memset(res, 0, 100);
+	res = malloc_res(a, b, fd, 1000);
 	max = find_max(a);
 	while (a->len > 3)
 	{
+		if (a->len < 1)
+			break ;
 		if (a->pile[a->len - 1] < max - 2)
 			push_pile(a, b, 1, res);
-		else if (a->pile[a->len - 1] > a->pile[0] && b->pile[b->len - 1] < b->pile[0])
+		else if (a->pile[a->len - 1] > a->pile[0]
+			&& b->pile[b->len - 1] < b->pile[0])
 			rotate_both(a, b, 1, res);
 		else
 			rotate_pile(a, 1, res);
-		if (a->pile[a->len - 1] > a->pile[a->len - 2] && b->pile[b->len - 1] < b->pile[b->len - 2])
+		if (a->pile[a->len - 1] > a->pile[a->len - 2]
+			&& b->pile[b->len - 1] < b->pile[b->len - 2])
 			swap_both(a, b, 1, res);
 	}
 	order_a(a, res);
 	empty_b(a, b, res);
 	reduce_result(res);
-	convert_result(res, fd);
+	convert_result_clofree(res, fd);
+	free_both_piles(a, b);
 }

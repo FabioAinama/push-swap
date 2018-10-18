@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   transform-numbers.c                                :+:      :+:    :+:   */
+/*   transform_numbers.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fginja-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push-swap.h"
+#include "push_swap.h"
 
 static	void	transform_numbers(t_pile *a, t_pile *cpy)
 {
@@ -75,10 +75,11 @@ static	int		quicksort_tab(int *tab, int start, int end)
 }
 
 /*
-**	Sort then will transform 6 8 5 20 into 2 3 1 4 (transform into successive numbers)
+**	Sort then will transform 6 8 5 20 into 2 3 1 4
+**	(transform into successive numbers)
 */
 
-int			order_numbers(t_pile *a, t_pile *cpy)
+int				order_numbers(t_pile *a, t_pile *cpy)
 {
 	if (quicksort_tab(cpy->pile, 0, cpy->len - 1) == -1)
 		return (-1);

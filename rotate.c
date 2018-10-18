@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push-swap.h"
+#include "push_swap.h"
 
 int		reverse_rotate_pile(t_pile *p, int print, int *res)
 {

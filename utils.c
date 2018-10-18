@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push-swap.h"
+#include "push_swap.h"
 
 int		sorted(t_pile *p)
 {
@@ -45,7 +45,8 @@ void	get_average(t_pile *p)
 }
 
 /*
-**	It's possible to change the value of the return (-1, -2...) to optimize the number of operations
+**	It's possible to change the value of the return (-1, -2...)
+**	to optimize the number of operations
 */
 
 int		get_average_pivot(t_pile *p, int pivot)
@@ -80,24 +81,28 @@ int		get_pile_length(int *pile)
 	return (i);
 }
 
-void	print_piles(t_pile *a, t_pile *b)
+int		get_length_args(int argc, char **argv)
 {
-	int i;
+	int		i;
+	int		j;
+	int		k;
+	char	**tab;
 
-	i = a->len - 1;
-	while (i >= 0)
+	i = 0;
+	k = 0;
+	while (i < argc)
 	{
-		printf("Pile A: %-10d\n", a->pile[i]);
-		i--;
+		j = 0;
+		tab = NULL;
+		tab = ft_strsplit(argv[i], ' ');
+		while (tab[j])
+		{
+			ft_strdel(&tab[j]);
+			j++;
+			k++;
+		}
+		free(tab);
+		i++;
 	}
-	// printf("Pile A (Last): %-10d\n", a->pile[a->len]);
-	i = b->len - 1;
-	while (i >= 0)
-	{
-		if (b->pile[i] != 0)
-			printf("Pile B: %10d\n", b->pile[i]);
-		i--;
-	}
-	// printf("Pile B (Last): %10d\n", b->pile[b->len]);
-	printf("----------------------------------------\n");	
+	return (k);
 }

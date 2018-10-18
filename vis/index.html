@@ -6,7 +6,7 @@
 	<script src="p5/p5.min.js"></script>
 	<title>Push-Swap</title>
 	<style>
-		body {margin: 0; padding: 0;}
+		body, p {margin: 0; padding: 0;}
 	</style>
 </head>
 <body>
@@ -15,6 +15,12 @@
 		<input type="number" value="1" onchange="changeTime(this.value)"/>
 	</label>
 	<button onclick="startDraw()">Start</button>
+	<p style="display: inline-block;">Instruction:</p>
+	<p style="display: inline-block; padding: 0 2rem;" id="inst"> - </p>
+	<p style="display: inline-block">Number:</p>
+	<p style="display: inline-block; padding: 0 2rem" id="inst_nb">0</p>
+	<p style="display: inline-block">Total:</p>
+	<p style="display: inline-block; padding: 0 2rem" id="total"></p>
 </body>
 <script src="sketch.js"></script>
 </html>

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push-swap.h"
+#include "push_swap.h"
 
 void		push_into_res(int *res, int value)
 {
@@ -18,7 +18,14 @@ void		push_into_res(int *res, int value)
 
 	i = 0;
 	while (res[i] != 0)
+	{
+		if (i == MAX_INST)
+		{
+			ft_putendl_fd("Max instuctions overflow", 2);
+			exit(0);
+		}
 		i++;
+	}
 	res[i] = value;
 	res[i + 1] = 0;
 }
@@ -78,11 +85,12 @@ static	int	convert_result_rotate(int res, int fd)
 }
 
 /*
-**	First convert_result will convert the array of int into a string operation
-**	Then it will write it into the correct file descriptor, then close it.
+**	First convert_result will convert the array of int into a string operation.
+**	Then it will write it into the correct file descriptor.
+**	Last, it will close the fd and free res.
 */
 
-void		convert_result(int *res, int fd)
+void		convert_result_clofree(int *res, int fd)
 {
 	int i;
 
@@ -103,4 +111,5 @@ void		convert_result(int *res, int fd)
 			ft_putendl_fd("Error", 2);
 	}
 	close_fd(fd);
+	free(res);
 }

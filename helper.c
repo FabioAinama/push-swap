@@ -9,10 +9,10 @@
 /*   Updated: 2018/10/01 23:54:55 by fginja-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-// Non ok
-#include "push-swap.h"
 
-int			find_min(t_pile *p)
+#include "push_swap.h"
+
+int				find_min(t_pile *p)
 {
 	int i;
 
@@ -26,7 +26,7 @@ int			find_min(t_pile *p)
 	return (p->min);
 }
 
-int			find_max(t_pile *p)
+int				find_max(t_pile *p)
 {
 	int i;
 
@@ -41,7 +41,7 @@ int			find_max(t_pile *p)
 	return (p->max);
 }
 
-int			closer_to_which(t_pile *p, int nb)
+static	int		closer_to_which(t_pile *p, int nb)
 {
 	int i;
 
@@ -54,22 +54,25 @@ int			closer_to_which(t_pile *p, int nb)
 		return (0);
 }
 
-int			push_number_to_top(t_pile *b, t_pile *a, int nb, int *res)
+static	void	push_and_rotate(t_pile *a, t_pile *b, int nb, int *res)
+{
+	push_pile(b, a, 1, res);
+	if (closer_to_which(b, nb + 1))
+		rotate_both(a, b, 1, res);
+	else
+		rotate_pile(a, 1, res);
+}
+
+void			push_number_to_top(t_pile *b, t_pile *a, int nb, int *res)
 {
 	if (b->len < 1)
-		return (0);
+		return ;
 	if (closer_to_which(b, nb))
 	{
 		while (b->pile[b->len - 1] != nb)
 		{
 			if (b->pile[b->len - 1] == a->pile[0] + 1)
-			{
-				push_pile(b, a, 1, res);
-				if (closer_to_which(b, nb + 1))
-					rotate_both(a, b, 1, res);
-				else
-					rotate_pile(a, 1, res);
-			}
+				push_and_rotate(a, b, nb, res);
 			else
 				reverse_rotate_pile(b, 1, res);
 		}
@@ -79,16 +82,9 @@ int			push_number_to_top(t_pile *b, t_pile *a, int nb, int *res)
 		while (b->pile[b->len - 1] != nb)
 		{
 			if (b->pile[b->len - 1] == a->pile[0] + 1)
-			{
-				push_pile(b, a, 1, res);
-				// if (closer_to_which(b, nb + 1))
-				// 	rotate_both(a, b, 1);
-				// else
-					rotate_pile(a, 1, res);
-			}
+				push_and_rotate(a, b, nb, res);
 			else
 				rotate_pile(b, 1, res);
 		}
 	}
-	return (0);
 }

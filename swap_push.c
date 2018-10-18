@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push-swap.h"
+#include "push_swap.h"
 
 int		push_pile(t_pile *src, t_pile *dst, int print, int *res)
 {

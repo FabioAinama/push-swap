@@ -10,20 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push-swap.h"
+#include "push_swap.h"
 
-void	close_fd(int fd)
+int		find_duplicates(t_pile *a, int nb, int until)
 {
-	if (fd > 2)
-		close(fd);
+	int i;
+
+	i = a->len - 1;
+	while (i > until)
+	{
+		if (nb == a->pile[i])
+			return (1);
+		--i;
+	}
+	return (0);
 }
 
 void	free_both_piles(t_pile *a, t_pile *b)
 {
-	free(a->pile);
-	free(b->pile);
-	free(a);
-	free(b);
+	if (a != NULL)
+	{
+		free(a->pile);
+		free(a);
+	}
+	if (b != NULL)
+	{
+		free(b->pile);
+		free(b);
+	}
 }
 
 void	free_pile(t_pile *p)
@@ -36,10 +50,11 @@ void	free_pile(t_pile *p)
 	}
 }
 
-void	exit_all(t_pile *a, t_pile *b)
+void	exit_all(t_pile *a, t_pile *b, int err)
 {
 	free_both_piles(a, b);
-	ft_putendl_fd("Error", 2);
+	if (err == 1)
+		ft_putendl_fd("Error", 2);
 	exit(0);
 }
 
@@ -57,7 +72,8 @@ void	last_check_free(t_pile *a, t_pile *b)
 		if (a->pile[i] < a->pile[i + 1])
 		{
 			ft_putendl_fd("KO", 2);
-			break ;
+			free_both_piles(a, b);
+			return ;
 		}
 		i++;
 	}

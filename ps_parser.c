@@ -9,8 +9,8 @@
 /*   Updated: 2018/10/06 11:44:06 by fginja-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-// Non ok
-#include "push-swap.h"
+
+#include "push_swap.h"
 
 t_pile		*init_pile(int c, int length)
 {
@@ -28,33 +28,7 @@ t_pile		*init_pile(int c, int length)
 	return (p);
 }
 
-int			get_length_args(int argc, char **argv)
-{
-	int i;
-	int j;
-	int k;
-	char **tab;
-
-	i = 0;
-	k = 0;
-	while (i < argc)
-	{
-		j = 0;
-		tab = NULL;
-		tab = ft_strsplit(argv[i], ' ');
-		while (tab[j])
-		{
-			ft_strdel(&tab[j]);
-			j++;
-			k++;
-		}
-		free(tab);
-		i++;
-	}
-	return (k);
-}
-
-static	int		check_only_digits(char *str)
+static	int	check_only_digits(char *str)
 {
 	int i;
 
@@ -68,8 +42,13 @@ static	int		check_only_digits(char *str)
 	return (1);
 }
 
-// fuite memoire si je retourne -1 (tab non free...)
-// tab non protege
+static	int	free_tab_and_return(char **tab, int j)
+{
+	ft_strdel(&tab[j]);
+	free(tab);
+	return (-1);
+}
+
 int			fill_piles(t_pile *a, t_pile *c, int argc, char **argv)
 {
 	int		i;
@@ -88,7 +67,7 @@ int			fill_piles(t_pile *a, t_pile *c, int argc, char **argv)
 		{
 			ln = ft_atol(tab[j]);
 			if (ln > INT_MAX || check_only_digits(tab[j]) == 0)
-				return (-1);
+				return (free_tab_and_return(tab, j));
 			a->pile[k] = ln;
 			c->pile[k] = a->pile[k];
 			ft_strdel(&tab[j]);
@@ -116,8 +95,9 @@ int			fill_pile(t_pile *a, int argc, char **argv)
 		while (tab[++j])
 		{
 			ln = ft_atol(tab[j]);
-			if (ln > INT_MAX || check_only_digits(tab[j]) == 0)
-				return (-1);
+			if (ln > INT_MAX || !check_only_digits(tab[j])
+				|| find_duplicates(a, ln, k))
+				return (free_tab_and_return(tab, j));
 			a->pile[k] = ln;
 			ft_strdel(&tab[j]);
 			k--;

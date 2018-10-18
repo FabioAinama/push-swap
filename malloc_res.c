@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split.c                                            :+:      :+:    :+:   */
+/*   malloc_res.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fginja-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/05 05:04:13 by fginja-d          #+#    #+#             */
-/*   Updated: 2018/10/05 05:04:14 by fginja-d         ###   ########.fr       */
+/*   Created: 2018/10/18 14:25:05 by fginja-d          #+#    #+#             */
+/*   Updated: 2018/10/18 14:25:07 by fginja-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	split_a(t_pile *a, t_pile *b, int pivot, int *res)
+int	*malloc_res(t_pile *a, t_pile *b, int fd, int length)
 {
-	int half;
+	int *res;
 
-	half = a->len / 2;
-	while (a->len > half && a->len > 0)
+	res = NULL;
+	if (!(res = (int *)malloc(sizeof(int) * length)))
 	{
-		if (a->pile[a->len - 1] > pivot)
-		{
-			if (b->len > 1)
-			{
-				if (b->pile[b->len - 1] < (pivot / 2))
-					rotate_both(a, b, 1, res);
-				else
-					rotate_pile(a, 1, res);
-			}
-			else
-				rotate_pile(a, 1, res);
-		}
-		else
-			push_pile(a, b, 1, res);
+		close_fd(fd);
+		exit_all(a, b, 1);
 	}
+	ft_memset(res, 0, ((length) * sizeof(int)));
+	return (res);
 }

@@ -18,6 +18,8 @@ function changeTime(speed)
 
 function startDraw()
 {
+	// document.getElementById("total").innerHTML(nonOp.length);
+	// console.log(document.getElementById("total"));
 	let button = document.getElementsByTagName("button")[0];
 	if (button.innerHTML == "Pause")
 		button.innerHTML = "Restart"
@@ -36,6 +38,7 @@ function manipulateArrays(instruction)
 {
 	let tmp;
 	console.log("Instruction: " + instruction);
+	document.getElementById("inst").innerText = instruction;
 	instructions = instructions.slice(1);
 	let tmpPileA = [...pileA];
 	let tmpPileB = [...pileB];
@@ -107,6 +110,7 @@ function manipulateArrays(instruction)
 	pileA = [...tmpPileA];
 	pileB = [...tmpPileB];
 	setTimeout(() => {
+		document.getElementById("inst_nb").innerText = nonOp.length - instructions.length;
 		redraw();
 	}, time);
 }
@@ -114,7 +118,7 @@ function manipulateArrays(instruction)
 function setup()
 {
 	pileA.pop();
-	// pileA = nonFormatted;
+	document.getElementById("total").innerText = nonOp.length;
 	console.log(pileA);
 	nonOp.pop();
 	instructions = nonOp;
@@ -135,8 +139,8 @@ function draw()
 	pileB.map((el, i) => printPile(el, i, (width / 2)));
 	if (instructions.length && start)
 		manipulateArrays(instructions[0]);
-	else
-		console.log(pileA);
+	if (instructions.length == 0)
+		document.getElementById("inst_nb").innerText = (nonOp.length + 1);
 }
 
 function printPile(value, index, origin)
